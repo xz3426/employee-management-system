@@ -1,24 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Routes, Route, Link, Navigate, useNavigate } from "react-router-dom";
+import {
+  NavBar,
+  MyFooter,
+  MyContent,
+} from "./Components/LandingPageComponents";
+import { Layout } from "antd";
+import SignUp from "./pages/SignUp";
+import SignIn from "./pages/SignIn";
+import Error from "./pages/Error";
 
+const { Header, Footer, Content } = Layout;
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Layout className="layout">
+        <Header>
+          <NavBar></NavBar>
+        </Header>
+
+        <Content>
+          <Routes>
+            <Route path="/" element={<MyContent />} />
+            <Route path="signup" element={<SignUp />} />
+            <Route path="signin" element={<SignIn />} />
+            {/* <Route path="changepassword" element={<ChangePassword />} /> */}
+            <Route path="*" element={<Error />} />
+          </Routes>
+        </Content>
+        <br />
+        <Footer>
+          <MyFooter></MyFooter>
+        </Footer>
+      </Layout>
+    </>
   );
 }
 
