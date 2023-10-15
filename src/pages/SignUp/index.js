@@ -11,16 +11,16 @@ export default function SignUp() {
   const [signUpStatus, setsignUpStatus] = useState("idle");
   const [signUpError, setsignUpError] = useState("");
 
-  // useEffect(() => {
-  //   if (signUpStatus === "succeeded") {
-  //     message.success("Sign up successfully!");
-  //     setsignUpStatus("idle");
-  //     navigate("/signin");
-  //   } else if (signUpStatus === "failed") {
-  //     message.error(signUpError);
-  //     setsignUpStatus("idle");
-  //   }
-  // }, [signUpStatus, navigate]);
+  useEffect(() => {
+    if (signUpStatus === "succeeded") {
+      message.success("Sign up successfully!");
+      setsignUpStatus("idle");
+      navigate("/signin");
+    } else if (signUpStatus === "failed") {
+      message.error(signUpError);
+      setsignUpStatus("idle");
+    }
+  }, [signUpStatus, navigate]);
 
   const fields = [
     {
@@ -62,12 +62,12 @@ export default function SignUp() {
 
   const checkbox = {
     name: "authorization",
-    text: "Admin",
+    text: "HR",
   };
 
   const onSubmit = async (data) => {
     if (data["authorization"]) {
-      data["authorization"] = "admin";
+      data["authorization"] = "hr";
     } else {
       data["authorization"] = "regular";
     }

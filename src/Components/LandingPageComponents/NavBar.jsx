@@ -3,14 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { UserOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { Layout, Input, Badge, Avatar, Button, Popover, List } from "antd";
+import { logOutUser } from "app/userSlice";
 const { Header } = Layout;
 const { Search } = Input;
 
 const NavBar_ = () => {
   const navigate = useNavigate();
-  // const isSignedIn = useSelector((state) => state.user.isAuthenticated);
+  const isSignedIn = useSelector((state) => state.user.isAuthenticated);
   const dispatch = useDispatch();
-  const signOut = () => {};
+  const signOut = () => {
+    dispatch(logOutUser());
+  };
 
   return (
     <div className="nav-bar">
@@ -40,13 +43,13 @@ const NavBar_ = () => {
           <Badge>
             <Avatar shape="square" icon={<UserOutlined />} />
           </Badge>
-          {/* {isSignedIn === true ? (
+          {isSignedIn === true ? (
             <Link to="/SignIn" onClick={signOut}>
               SignOut
             </Link>
           ) : (
             <Link to="/SignIn">SignIn</Link>
-          )} */}
+          )}
         </div>
       </Header>
     </div>

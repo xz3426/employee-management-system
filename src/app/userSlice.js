@@ -24,22 +24,20 @@ export const authUser = createAsyncThunk(
   }
 );
 
-
-// export const signUpUser = createAsyncThunk(
-//   'currentUser/signUpUser',
-//   async (data, thunkAPI) => {
-//     try {
-//       const user = await signUp(data);
-//       thunkAPI.dispatch(removeError());
-//       return user;
-//     } catch (error) {
-//       const { message } = error;
-//       thunkAPI.dispatch(addError(message));
-//       return thunkAPI.rejectWithValue(message);
-//     }
-//   }
-// );
-
+export const signUpUser = createAsyncThunk(
+  "currentUser/signUpUser",
+  async (data, thunkAPI) => {
+    try {
+      const user = await signUp(data);
+      thunkAPI.dispatch(removeError());
+      return user;
+    } catch (error) {
+      const { message } = error;
+      thunkAPI.dispatch(addError(message));
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 const currentUserSlice = createSlice({
   name: "currentUser",
@@ -48,7 +46,6 @@ const currentUserSlice = createSlice({
     setCurrentUser: (state, action) => {
       state.isAuthenticated = !!Object.keys(action.payload).length;
       state.user = action.payload;
-
     },
     logOutUser: (state, action) => {
       state.isAuthenticated = false;
@@ -72,17 +69,16 @@ const currentUserSlice = createSlice({
       state.status = "pending";
     });
 
-    // builder.addCase(signUpUser.fulfilled, (state, action) => {
-    //   state.status = 'succeeded';
-    // });
-    // builder.addCase(signUpUser.rejected, (state, action) => {
-    //   state.status = 'failed';
-    // });
-    // builder.addCase(signUpUser.pending, (state, action) => {
-    //   state.status = 'pending';
-    // });
-  }
-
+    builder.addCase(signUpUser.fulfilled, (state, action) => {
+      state.status = "succeeded";
+    });
+    builder.addCase(signUpUser.rejected, (state, action) => {
+      state.status = "failed";
+    });
+    builder.addCase(signUpUser.pending, (state, action) => {
+      state.status = "pending";
+    });
+  },
 });
 
 export const { setCurrentUser, logOutUser } = currentUserSlice.actions;
