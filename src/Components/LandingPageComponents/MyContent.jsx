@@ -1,6 +1,18 @@
+import HR from "pages/HR";
+import { Navigate } from "react-router-dom";
 import { Layout } from "antd";
+import React, { useMemo } from "react";
+import Employee from "pages/Employee";
+import jwt_decode from "jwt-decode";
+
 const { Content } = Layout;
+
 const MyContent_ = () => {
+  const token = useMemo(() => localStorage.getItem("token"), []);
+  if (!token) {
+    return <Navigate to="/error" />;
+  }
+  const authorization = jwt_decode(token).authorization;
   return (
     <Content
       style={{
@@ -8,7 +20,9 @@ const MyContent_ = () => {
         minHeight: "90vh",
         backgroundColor: "lightgrey",
       }}
-    ></Content>
+    >
+      {authorization === "hr" ? <HR /> : <Employee />}
+    </Content>
   );
 };
 
