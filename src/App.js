@@ -28,6 +28,7 @@ function App() {
             <Route path="*" element={<Error />} />
           </Routes>
         </Content>
+
         <br />
         <Footer>
           <MyFooter></MyFooter>

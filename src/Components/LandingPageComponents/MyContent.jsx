@@ -13,6 +13,8 @@ const MyContent_ = () => {
     return <Navigate to="/error" />;
   }
   const authorization = jwt_decode(token).authorization;
+  // const [authorization] =  useAuth();
+
   return (
     <Content
       style={{

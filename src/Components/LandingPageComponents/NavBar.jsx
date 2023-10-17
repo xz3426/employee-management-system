@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { UserOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { Layout, Input, Badge, Avatar, Button, Popover, List } from "antd";
 import { logOutUser } from "app/userSlice";
+import useAuth from "hooks/useAuth";
 const { Header } = Layout;
 const { Search } = Input;
 
@@ -14,6 +15,8 @@ const NavBar_ = () => {
   const signOut = () => {
     dispatch(logOutUser());
   };
+  const autorization = useAuth();
+  console.log(autorization);
 
   return (
     <div className="nav-bar">
