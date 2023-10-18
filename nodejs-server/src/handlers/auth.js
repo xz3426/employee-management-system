@@ -3,6 +3,35 @@ const jwt = module.require("jsonwebtoken");
 
 const signup = async (req, res, next) => {
   try {
+    const { email, password } = req.body;
+    console.log(email);
+    const newUser = await db.Token.findOne({ user:email });
+    console.log(newUser);
+    if (!newUser) {
+      const error = { 
+        message: "Invalid email/password" , 
+        ok: false}
+      console.log(error);
+      return res.status(400).json({error});
+    }
+    const result = await newUser.compareToken(req.query.token);
+    let isMatch = result.isMatch;
+    let isOnTime = result.isOnTime;
+    if (!isMatch) {
+      const error = {
+        message:'Incorrect Token',
+        ok: false,
+      };
+      return res.status(400).json({error});
+    }
+    if (!isOnTime) {
+      const error = {
+        message:'This token is no longer vaild, Please contact your HR',
+        ok: false,
+      };
+      return res.status(400).json({error});
+    }
+    db.Token.deleteOne({   } );
     let user = await db.User.create(req.body);
     let { id, username, authorization, profileImageUrl } = user;
     let token = await jwt.sign(

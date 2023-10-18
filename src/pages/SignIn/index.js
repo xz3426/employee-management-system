@@ -12,12 +12,18 @@ export default function SignIn() {
   const navigate = useNavigate();
   const location = useLocation();
   const signInStatus = useSelector((state) => state.user.status);
+  const user = useSelector((state) => state.user.user);
   const signInError = useSelector((state) => state.error.message);  
   
   useEffect(()=>{
     if (signInStatus === 'succeeded') {
       message.success("Sign in successfully");
-      navigate('/');
+      if (user.authorization === "hr"){
+        navigate('/hr');
+      }else if (user.authorization === "regular"){
+        navigate('/employee');
+      }
+      
     } else if (signInStatus === 'failed'){
       message.error(signInError);
     }
