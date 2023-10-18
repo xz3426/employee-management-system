@@ -153,4 +153,28 @@ const populateUserDetail = async (req, res, next) => {
   }
 };
 
-module.exports = { signup, signin, changePwd, updatePwd, populateUserDetail };
+const getUserDetailById = async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    const user = await db.User.findById(userId);
+    if (!user) {
+      return res.status(404).send({ message: "user not found" });
+    }
+    console.log(user);
+    return res.status(200).json(user.userDetail);
+  } catch (err) {
+    return res.status(400).json({
+      message: err.message,
+      ok: false,
+    });
+  }
+};
+
+module.exports = {
+  signup,
+  signin,
+  changePwd,
+  updatePwd,
+  populateUserDetail,
+  getUserDetailById,
+};
