@@ -15,7 +15,7 @@ const NavBar_ = () => {
   const signOut = () => {
     dispatch(logOutUser());
   };
-  const autorization = useAuth();
+  const { autorization } = useAuth();
 
   return (
     <div className="nav-bar">
@@ -67,7 +67,7 @@ const NavBar_ = () => {
           <Badge>
             <Avatar shape="square" icon={<UserOutlined />} />
           </Badge>
-          {autorization !== null ? (
+          {autorization ? (
             <Link to="/SignIn" onClick={signOut}>
               SignOut
             </Link>
