@@ -25,9 +25,8 @@ function App() {
             <Route path="/" element={<MyContent />} />
             <Route path="signup" element={<SignUp />} />
             <Route path="signin" element={<SignIn />} />
-            {/* <Route path="changepassword" element={<ChangePassword />} /> */}
-
-            <Route path="onboarding" element={<OnboardingForm />} />
+            <Route path="employee/onboarding" element={<OnboardingForm />} />
+            {/* <Route path="employee/visaStatus" element={<VisaStatus />} /> */}
 
             <Route path="*" element={<Error />} />
           </Routes>
