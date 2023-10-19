@@ -8,10 +8,9 @@ import {
   Button,
   Upload,
   message,
-  DatePicker
+  DatePicker,
 } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -119,54 +118,52 @@ const OPTForm = () => {
   return (
     <Content>
       <div style={{ backgroundColor: "#f5f3f38f", padding: "10px 10px" }}>
-        <Form layout="vertical" autoComplete="off">
-          <Form.Item
-            key={fields.workTitle.name}
-            name={fields.workTitle.name}
-            label="What's your work autorization?"
-            rules={fields.workTitle.rules}
+        <Form.Item
+          key={fields.workTitle.name}
+          name={fields.workTitle.name}
+          label="What's your work autorization?"
+          rules={fields.workTitle.rules}
+        >
+          <Select
+            placeholder={fields.workTitle.placeholder}
+            onChange={onTitleChange}
+            style={{ width: "200px" }}
           >
-            <Select
-              placeholder={fields.workTitle.placeholder}
-              onChange={onTitleChange}
-              style={{ width: "200px" }}
-            >
-              <Option value="H1B">H1-B</Option>
-              <Option value="L2">L2</Option>
-              <Option value="F1">F1(CPT/OPT)</Option>
-              <Option value="H4">H4</Option>
-              <Option value="Other">Other</Option>
-            </Select>
+            <Option value="H1B">H1-B</Option>
+            <Option value="L2">L2</Option>
+            <Option value="F1">F1(CPT/OPT)</Option>
+            <Option value="H4">H4</Option>
+            <Option value="Other">Other</Option>
+          </Select>
+        </Form.Item>
+
+        {workTitle === "F1" ? (
+          <Form.Item label="OPT Receipt Upload:" name="optReceipt">
+            <Upload {...props}>
+              <Button icon={<UploadOutlined />}>Click to Upload</Button>
+            </Upload>
+          </Form.Item>
+        ) : null}
+
+        <Space size="large">
+          <Form.Item
+            key={fields.startDate.name}
+            name={fields.startDate.name}
+            label="Start Date"
+            rules={fields.startDate.rules}
+          >
+            <DatePicker onChange={onStartDateChange} />
           </Form.Item>
 
-          {workTitle === "F1" ? (
-            <Form.Item label="OPT Receipt Upload:" name="optReceipt">
-              <Upload {...props}>
-                <Button icon={<UploadOutlined />}>Click to Upload</Button>
-              </Upload>
-            </Form.Item>
-          ) : null}
-
-          <Space size="large">
-            <Form.Item
-              key={fields.startDate.name}
-              name={fields.startDate.name}
-              label="Start Date"
-              rules={fields.startDate.rules}
-            >
-              <DatePicker onChange={onStartDateChange} />
-            </Form.Item>
-
-            <Form.Item
-              key={fields.endDate.name}
-              name={fields.endDate.name}
-              label="End Date"
-              rules={fields.endDate.rules}
-            >
-              <DatePicker onChange={onEndDateChange} />
-            </Form.Item>
-          </Space>
-        </Form>
+          <Form.Item
+            key={fields.endDate.name}
+            name={fields.endDate.name}
+            label="End Date"
+            rules={fields.endDate.rules}
+          >
+            <DatePicker onChange={onEndDateChange} />
+          </Form.Item>
+        </Space>
       </div>
     </Content>
   );

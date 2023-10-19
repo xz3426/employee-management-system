@@ -1,5 +1,5 @@
 import React from "react";
-import { Space, Input, Form, Layout} from "antd";
+import { Space, Input, Form, Layout } from "antd";
 // import { useNavigate } from "react-router-dom";
 // import { FileImageTwoTone } from "@ant-design/icons";
 // import { deleteProductById } from "services/products";
@@ -72,7 +72,6 @@ const fields = {
     ],
   },
 
-
   relationship: {
     placeholder: "Explain the relationship",
     name: "referRelationship",
@@ -84,114 +83,91 @@ const fields = {
       },
     ],
   },
-
 };
 
-
-const ReferenceForm = (
-// {
-//   buttonText,
-//   onSubmit,
-//   product,
-//   titleText,
-//   isEdit = false,
-// }
-) => {
-
+const ReferenceForm = () => {
   return (
     <Content>
-        <h3>Reference Information</h3>
-      <div style={{ backgroundColor: "#f5f3f38f", padding: "10px 10px"}}>
+      <h3>Reference Information</h3>
+      <div style={{ backgroundColor: "#f5f3f38f", padding: "10px 10px" }}>
         {/* <div style={container}> */}
-          <Form layout="vertical" autoComplete="off">
-            <Space size="large">
-              <Form.Item
-                key={fields.firstName.name}
-                name={fields.firstName.name}
-                label="First Name"
-                rules={fields.firstName.rules}
-                // initialValue={product?.productName}
-              >
-                <Input
-                // style={{ width: "100%" }}
-                // placeholder={fields.productName.placeholder}
-                />
-              </Form.Item>
+        <Space size="large">
+          <Form.Item
+            key={fields.firstName.name}
+            name={fields.firstName.name}
+            label="First Name"
+            rules={fields.firstName.rules}
+            // initialValue={product?.productName}
+          ></Form.Item>
 
-              <Form.Item
-                key={fields.midName.name}
-                name={fields.midName.name}
-                label="Mid Name"
-                rules={fields.midName.rules}
-                // initialValue={product?.productName}
-              >
-                <Input
-                // style={{ width: "100%" }}
-                // placeholder={fields.productName.placeholder}
-                />
-              </Form.Item>
+          <Form.Item
+            key={fields.midName.name}
+            name={fields.midName.name}
+            label="Mid Name"
+            rules={fields.midName.rules}
+            // initialValue={product?.productName}
+          >
+            <Input
+            // style={{ width: "100%" }}
+            // placeholder={fields.productName.placeholder}
+            />
+          </Form.Item>
 
-              <Form.Item
-                key={fields.lastName.name}
-                name={fields.lastName.name}
-                label="Last Name"
-                rules={fields.lastName.rules}
-                // initialValue={product?.productName}
-              >
-                <Input
-                // style={{ width: "100%" }}
-                // placeholder={fields.productName.placeholder}
-                />
-              </Form.Item>
-            </Space>
+          <Form.Item
+            key={fields.lastName.name}
+            name={fields.lastName.name}
+            label="Last Name"
+            rules={fields.lastName.rules}
+            // initialValue={product?.productName}
+          >
+            <Input
+            // style={{ width: "100%" }}
+            // placeholder={fields.productName.placeholder}
+            />
+          </Form.Item>
+        </Space>
 
+        <Space size="large">
+          <Form.Item
+            key={fields.cellPhone.name}
+            name={fields.cellPhone.name}
+            label="Cell Phone Number"
+            rules={fields.cellPhone.rules}
+            // initialValue={product?.productName}
+          >
+            <Input
+              style={{ width: "100%" }}
+              // placeholder={fields.productName.placeholder}
+            />
+          </Form.Item>
 
-            <Space size="large">
-            <Form.Item
-                key={fields.cellPhone.name}
-                name={fields.cellPhone.name}
-                label="Cell Phone Number"
-                rules={fields.cellPhone.rules}
-                // initialValue={product?.productName}
-              >
-                <Input
-                style={{ width: "100%" }}
-                // placeholder={fields.productName.placeholder}
-                />
-              </Form.Item>
+          <Form.Item
+            key={fields.email.name}
+            name={fields.email.name}
+            label="Email"
+            rules={fields.email.rules}
+            // initialValue={product?.productName}
+          >
+            <Input
+              style={{ width: "100%" }}
+              // placeholder={fields.productName.placeholder}
+            />
+          </Form.Item>
+        </Space>
 
-              <Form.Item
-                key={fields.email.name}
-                name={fields.email.name}
-                label="Email"
-                rules={fields.email.rules}
-                // initialValue={product?.productName}
-              >
-                <Input
-                style={{ width: "100%" }}
-                // placeholder={fields.productName.placeholder}
-                />
-              </Form.Item>
-            </Space>
-
-
-            <Form.Item
-              key={fields.relationship.name}
-              name={fields.relationship.name}
-              label="Relationship"
-              rules={fields.relationship.rules}
-            //   initialValue={product?.description}
-            >
-              <Input
-
-                placeholder={fields.relationship.placeholder}
-                // value={product?.description}
-              />
-            </Form.Item>
-
-          </Form>
-        </div>
-      {/* </div> */}
+        <Form.Item
+          key={fields.relationship.name}
+          name={fields.relationship.name}
+          label="Relationship"
+          rules={fields.relationship.rules}
+          //   initialValue={product?.description}
+        >
+          <Input
+            placeholder={fields.relationship.placeholder}
+            // value={product?.description}
+          />
+        </Form.Item>
+      </div>
     </Content>
   );
 };

@@ -9,7 +9,7 @@ import { Layout } from "antd";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Error from "./pages/Error";
-import OnboardingForm from "./Components/OnboardingForm"
+import OnboardingForm from "./Components/OnboardingForm";
 
 const { Header, Footer, Content } = Layout;
 function App() {
@@ -27,7 +27,7 @@ function App() {
             <Route path="signin" element={<SignIn />} />
             {/* <Route path="changepassword" element={<ChangePassword />} /> */}
 
-            <Route path="onboardingForm" element={<OnboardingForm />} />
+            <Route path="onboarding" element={<OnboardingForm />} />
 
             <Route path="*" element={<Error />} />
           </Routes>

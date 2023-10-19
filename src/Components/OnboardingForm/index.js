@@ -81,17 +81,6 @@ const OnboardingForm = ({
               >
                 Submit
               </Button>
-              {/* {isEdit && (
-                <Button
-                  danger
-                  style={{ margin: "20px" }}
-                  // onClick={() => {
-                  //   deleteProductById(product._id).then(navigate("/"));
-                  // }}
-                >
-                  Delete
-                </Button>
-              )} */}
             </Form.Item>
           </Form>
         </div>
