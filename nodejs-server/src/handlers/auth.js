@@ -132,7 +132,7 @@ const updatePwd = async (req, res, next) => {
 
 const populateUserDetail = async (req, res, next) => {
   try {
-    const { id } = req.body;
+    const { id, USID } = req.body;
     const user = await db.User.findById(id);
     // Check if the user exists
     if (!user) {
@@ -141,7 +141,9 @@ const populateUserDetail = async (req, res, next) => {
         ok: false,
       });
     }
+    user.USID = USID;
     user.userDetail = req.body;
+    // user.ApplicationStatus = req.body.ApplicationStatus;
     await user.save();
 
     return res
@@ -170,6 +172,25 @@ const getUserDetailById = async (req, res, next) => {
   }
 };
 
+const getUserApplicationStatus = async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    const user = await db.User.findById(userId);
+    if (!user) {
+      return res.status(404).send({ message: "user not found" });
+    }
+    if (!user.ApplicationStatus) {
+      return res.status(200).json({ ApplicationStatus: "never" });
+    }
+    return res.status(200).json(user.ApplicationStatus);
+  } catch (err) {
+    return res.status(400).json({
+      message: err.message,
+      ok: false,
+    });
+  }
+};
+
 module.exports = {
   signup,
   signin,
@@ -177,4 +198,5 @@ module.exports = {
   updatePwd,
   populateUserDetail,
   getUserDetailById,
+  getUserApplicationStatus,
 };

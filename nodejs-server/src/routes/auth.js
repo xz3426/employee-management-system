@@ -7,6 +7,7 @@ const {
   updatePwd,
   populateUserDetail,
   getUserDetailById,
+  getUserApplicationStatus,
 } = require("../handlers/auth");
 
 router.post("/signup", signup);
@@ -15,4 +16,5 @@ router.post("/changePwd", changePwd);
 router.post("/updatePwd", updatePwd);
 router.post("/populateUserDetail", populateUserDetail);
 router.get("/userDetail/:id", getUserDetailById);
+router.get("/:id", getUserApplicationStatus);
 module.exports = router;

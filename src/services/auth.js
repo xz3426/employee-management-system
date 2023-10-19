@@ -33,10 +33,24 @@ export const updatePwd = async (data) => {
 };
 
 export const populateDetail = async (data) => {
-  console.log("call");
   return await apiCall({
     url: "/api/auth/populateUserDetail",
     method: "POST",
     data,
+  });
+};
+
+export const getUserDetailById = async (data) => {
+  return await apiCall({
+    url: `/api/auth/userDetail/${data.id}`,
+    method: "GET",
+    data,
+  });
+};
+
+export const getUserApplicationStatus = async (id) => {
+  return await apiCall({
+    url: `/api/auth/${id}`,
+    method: "GET",
   });
 };

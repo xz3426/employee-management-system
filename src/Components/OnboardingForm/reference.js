@@ -98,7 +98,12 @@ const ReferenceForm = () => {
             label="First Name"
             rules={fields.firstName.rules}
             // initialValue={product?.productName}
-          ></Form.Item>
+          >
+            <Input
+            // style={{ width: "100%" }}
+            // placeholder={fields.productName.placeholder}
+            />
+          </Form.Item>
 
           <Form.Item
             key={fields.midName.name}

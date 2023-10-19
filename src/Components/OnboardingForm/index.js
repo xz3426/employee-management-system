@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
+import useAuth from "hooks/useAuth";
 import { Button, Select, Form, Layout } from "antd";
 import { useNavigate } from "react-router-dom";
-// import { deleteProductById } from "services/products";
+import { populateDetail } from "services/auth";
 import ReferenceForm from "./reference";
 import EmergencyForm from "./emergency";
 import OPTForm from "./optForm";
@@ -26,16 +27,10 @@ const container = {
   fontFamily: "Arial, sans-serif",
 };
 
-const OnboardingForm = ({
-  buttonText,
-  onSubmit,
-  product,
-  titleText,
-  isEdit = false,
-}) => {
+const OnboardingForm = () => {
   const navigate = useNavigate();
   const [isAmerican, setIsAmerican] = useState(true);
-
+  const { userID } = useAuth();
   const onUSIDChange = (value) => {
     switch (value) {
       case "yes":
@@ -46,6 +41,13 @@ const OnboardingForm = ({
         break;
       default:
     }
+  };
+
+  const onSubmit = (data) => {
+    data.id = userID;
+    data.ApplicationStatus = "pending";
+    data.console.log(data);
+    populateDetail(data);
   };
 
   return (

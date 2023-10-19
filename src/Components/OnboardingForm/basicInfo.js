@@ -125,7 +125,7 @@ const fields = {
       {
         required: true,
         message: "Please enter your date of birth!",
-        validateTrigger: "onBlur", // Validate onBlur
+        // validateTrigger: "onBlur", // Validate onBlur
       },
       {
         type: "date",

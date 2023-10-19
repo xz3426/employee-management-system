@@ -22,7 +22,7 @@ const fields = {
     type: "string",
     rules: [
       {
-        required: false,
+        required: true,
         message: "Please choose your gender",
       },
     ],
@@ -56,7 +56,7 @@ const fields = {
     type: "date",
     rules: [
       {
-        required: false,
+        required: true,
         message: "Please enter your start date!",
       },
       {
@@ -72,7 +72,7 @@ const fields = {
     type: "date",
     rules: [
       {
-        required: false,
+        required: true,
         message: "Please enter your end date!",
       },
       {
