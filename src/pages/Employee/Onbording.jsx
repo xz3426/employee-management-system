@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  Form,
-  Input,
-  Button,
-  DatePicker,
-  Radio,
-  Upload,
-  Select,
-  Layout,
-} from "antd";
+import { Form, Input, Button, DatePicker, Select, Layout } from "antd";
 import ImagePreview from "Components/OnboardingForm/ImagePreview";
 import { useEffect, useState } from "react";
 import useAuth from "hooks/useAuth";
@@ -17,12 +8,13 @@ const { Content } = Layout;
 
 const Onboarding = () => {
   const [profileImage, setProfileImage] = useState();
+  const [citizen, setCitizen] = useState("false");
   const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
   };
   const { userID } = useAuth();
-
+  const { Option } = Select;
   const onSubmit = (data) => {
     data.id = userID;
     populateDetail(data);
@@ -43,7 +35,6 @@ const Onboarding = () => {
         >
           <Input />
         </Form.Item>
-
         <Form.Item
           label="Mid Name"
           name="midname"
@@ -51,7 +42,6 @@ const Onboarding = () => {
         >
           <Input />
         </Form.Item>
-
         <Form.Item
           label="Last Name"
           name="lastname"
@@ -59,7 +49,6 @@ const Onboarding = () => {
         >
           <Input />
         </Form.Item>
-
         <Form.Item
           label="Preferred Name"
           name="preferredname"
@@ -67,7 +56,6 @@ const Onboarding = () => {
         >
           <Input />
         </Form.Item>
-
         <Form.Item
           label="Email"
           name="email"
@@ -75,7 +63,6 @@ const Onboarding = () => {
         >
           <Input />
         </Form.Item>
-
         <Form.Item
           label="Cell Phone Number"
           name="cellphone"
@@ -83,7 +70,6 @@ const Onboarding = () => {
         >
           <Input />
         </Form.Item>
-
         <Form.Item
           label="Work Phone Number"
           name="workphone"
@@ -91,7 +77,6 @@ const Onboarding = () => {
         >
           <Input />
         </Form.Item>
-
         <Form.Item
           label="Current Address"
           name="address"
@@ -99,7 +84,6 @@ const Onboarding = () => {
         >
           <Input />
         </Form.Item>
-
         <Form.Item
           label="Date of Birth"
           name="dateOfBirth"
@@ -107,7 +91,6 @@ const Onboarding = () => {
         >
           <DatePicker />
         </Form.Item>
-
         <Form.Item label="Gender" name="gender">
           <Select
             placeholder="Please Select Your Gender"
@@ -129,12 +112,22 @@ const Onboarding = () => {
             style={{ width: "200px" }}
           />
         </Form.Item>
-
         <ImagePreview
           profileImage={profileImage}
           setProfileImage={setProfileImage}
         />
-
+        <Form.Item label="Citizen" name="Citizen">
+          <label>Permanent resident or citizen of the U.S.?</label>
+          <Select
+            defaultValue={citizen}
+            style={{ width: "100%" }}
+            onChange={(value) => setCitizen(value)}
+          >
+            <Option value="true">yes</Option>
+            <Option value="false">no</Option>
+          </Select>
+        </Form.Item>
+        {citizen === "false" && <h1>Whats's Your work authoization?</h1>}
         <Form.Item>
           <Button type="primary" htmlType="submit" style={{ margin: "20px" }}>
             Submit

@@ -15,7 +15,7 @@ const NavBar_ = () => {
   const signOut = () => {
     dispatch(logOutUser());
   };
-  const { autorization } = useAuth();
+  const { authorization } = useAuth();
 
   return (
     <div className="nav-bar">
@@ -42,7 +42,7 @@ const NavBar_ = () => {
             alignItems: "center",
           }}
         >
-          {autorization === "hr" && (
+          {authorization === "hr" && (
             <div style={{ display: "flex", padding: "20px" }}>
               <Link>
                 <h2>HR1 </h2>
@@ -53,7 +53,7 @@ const NavBar_ = () => {
             </div>
           )}
 
-          {autorization === "regular" && (
+          {authorization === "regular" && (
             <div style={{ display: "flex", padding: "20px" }}>
               <Link>
                 <h2> Regular 1 </h2>
@@ -67,7 +67,7 @@ const NavBar_ = () => {
           <Badge>
             <Avatar shape="square" icon={<UserOutlined />} />
           </Badge>
-          {autorization ? (
+          {authorization ? (
             <Link to="/SignIn" onClick={signOut}>
               SignOut
             </Link>
