@@ -9,8 +9,16 @@ import { Layout } from "antd";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Error from "./pages/Error";
-
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrentUser } from "./app/userSlice";
+import store from "app/store";
+import jwtDecode from "jwt-decode";
 const { Header, Footer, Content } = Layout;
+
+if (localStorage.getItem("token")) {
+  const user = jwtDecode(localStorage.getItem("token"));
+  store.dispatch(setCurrentUser(user));
+}
 function App() {
   return (
     <>
