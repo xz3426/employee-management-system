@@ -24,6 +24,9 @@ const userSchema = new Schema({
   profileImageUrl: {
     type: String,
   },
+  userDetail: {
+    type: Schema.Types.Mixed,
+  },
 });
 
 userSchema.pre("save", async function (next) {

@@ -16,19 +16,19 @@ const signup = async (req, res, next) => {
       token,
     });
   } catch (err) {
-    if (err.name === 'MongoServerError' && err.code === 11000) {
+    if (err.name === "MongoServerError" && err.code === 11000) {
       // Duplicate key error
       console.log(err.name);
       const error = {
-        message: 'This email is already registered.',
-        ok: false
-      }
-      
+        message: "This email is already registered.",
+        ok: false,
+      };
+
       return res.status(400).json({ error });
     } else {
       // Other errors
       console.error(err);
-      return res.status(500).json({ error: 'Internal server error.' });
+      return res.status(500).json({ error: "Internal server error." });
     }
   }
 };
@@ -38,11 +38,12 @@ const signin = async (req, res, next) => {
   try {
     const user = await db.User.findOne({ email });
     if (!user) {
-      const error = { 
-        message: "Invalid email/password" , 
-        ok: false}
+      const error = {
+        message: "Invalid email/password",
+        ok: false,
+      };
       console.log(error);
-      return res.status(400).json({error});
+      return res.status(400).json({ error });
     }
     const isMatch = await user.comparePassword(password);
     if (isMatch) {
@@ -57,21 +58,21 @@ const signin = async (req, res, next) => {
         profileImageUrl,
         token,
       });
-    }else {
-      const error = { 
-        message: "Invalid email/password" , 
-        ok: false}
+    } else {
+      const error = {
+        message: "Invalid email/password",
+        ok: false,
+      };
       console.log(error);
-      return res.status(400).json({error});
+      return res.status(400).json({ error });
     }
-    
   } catch (err) {
     return next(err);
   }
 };
 
-const changePwd= async (req, res, next) =>{
-  const {email} = req.body;
+const changePwd = async (req, res, next) => {
+  const { email } = req.body;
   try {
     // Find the user by email
     const user = await db.User.findOne({ email });
@@ -87,18 +88,19 @@ const changePwd= async (req, res, next) =>{
 
     // user.password = newPassword;
 
-
     // Respond with a success message
-    return res.status(200).json({ message: "User find successfully.", ok: true });
+    return res
+      .status(200)
+      .json({ message: "User find successfully.", ok: true });
   } catch (err) {
     // Handle any errors
     console.error(err);
-    return res.status(500).json({ error: 'Internal server error.' });
+    return res.status(500).json({ error: "Internal server error." });
   }
 };
 
-const updatePwd= async (req, res, next) =>{
-  const {email, newPassword} = req.body;
+const updatePwd = async (req, res, next) => {
+  const { email, newPassword } = req.body;
   try {
     // Find the user by email
     const user = await db.User.findOne({ email });
@@ -118,12 +120,61 @@ const updatePwd= async (req, res, next) =>{
     await user.save();
 
     // Respond with a success message
-    return res.status(200).json({ message: "Password updated successfully.", ok: true });
+    return res
+      .status(200)
+      .json({ message: "Password updated successfully.", ok: true });
   } catch (err) {
     // Handle any errors
     console.error(err);
-    return res.status(500).json({ error: 'Internal server error.' });
+    return res.status(500).json({ error: "Internal server error." });
   }
 };
 
-module.exports = { signup, signin, changePwd, updatePwd };
+const populateUserDetail = async (req, res, next) => {
+  try {
+    const { id } = req.body;
+    const user = await db.User.findById(id);
+    // Check if the user exists
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found.",
+        ok: false,
+      });
+    }
+    user.userDetail = req.body;
+    await user.save();
+
+    return res
+      .status(200)
+      .json({ message: "UserDetail updated successfully.", ok: true });
+  } catch (error) {
+    console.error(error);
+    return res.status(400).json({ error });
+  }
+};
+
+const getUserDetailById = async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    const user = await db.User.findById(userId);
+    if (!user) {
+      return res.status(404).send({ message: "user not found" });
+    }
+    console.log(user);
+    return res.status(200).json(user.userDetail);
+  } catch (err) {
+    return res.status(400).json({
+      message: err.message,
+      ok: false,
+    });
+  }
+};
+
+module.exports = {
+  signup,
+  signin,
+  changePwd,
+  updatePwd,
+  populateUserDetail,
+  getUserDetailById,
+};

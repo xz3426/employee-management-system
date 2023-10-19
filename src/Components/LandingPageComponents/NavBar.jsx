@@ -15,8 +15,7 @@ const NavBar_ = () => {
   const signOut = () => {
     dispatch(logOutUser());
   };
-  const autorization = useAuth();
-  console.log(autorization);
+  const { authorization } = useAuth();
 
   return (
     <div className="nav-bar">
@@ -31,22 +30,44 @@ const NavBar_ = () => {
           zIndex: "1000",
         }}
       >
-        <Link to="/">
-          <h2>Human Resources Chuwa</h2>
-        </Link>
-        <Search
-          placeholder="Search"
-          allowClear
-          enterButton="Search"
-          size="middle"
-          style={{ width: "30%" }}
-          onSearch={(value) => {}}
-        />
         <div>
+          <Link to="/">
+            <h2>Human Resources Chuwa</h2>
+          </Link>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          {authorization === "hr" && (
+            <div style={{ display: "flex", padding: "20px" }}>
+              <Link>
+                <h2>HR1 </h2>
+              </Link>
+              <Link>
+                <h2>HR2 </h2>
+              </Link>
+            </div>
+          )}
+
+          {authorization === "regular" && (
+            <div style={{ display: "flex", padding: "20px" }}>
+              <Link>
+                <h2> Regular 1 </h2>
+              </Link>
+              <Link>
+                <h2> Regular 2 </h2>
+              </Link>
+            </div>
+          )}
+
           <Badge>
             <Avatar shape="square" icon={<UserOutlined />} />
           </Badge>
-          {isSignedIn === true ? (
+          {authorization ? (
             <Link to="/SignIn" onClick={signOut}>
               SignOut
             </Link>
