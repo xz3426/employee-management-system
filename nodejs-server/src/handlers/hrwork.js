@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
 
 
   const generateToken = () => {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^*';
     let token = '';
   
     for (let i = 0; i < 8; i++) {
@@ -28,9 +28,9 @@ const sendToken = async (req, res, next) => {
         const token = generateToken();
         const mailOptions = {
             from: 'jirenmao3@gmail.com',
-            to: 'jirenmao@gmail.com',
+            to: user,
             subject: 'Hello from Chuwa',
-            text: 'http://localhost:3000/?token='+token,
+            text: 'http://localhost:3000/signup?token='+token,
             
           };
           
@@ -45,7 +45,7 @@ const sendToken = async (req, res, next) => {
             hr: hr,
             user: user,
             token: token,
-            createDate: Date.now()
+            createTime: Date.now()
         };
         let tokendb = await db.Token.create(tokenRecord)
         if (!tokendb){

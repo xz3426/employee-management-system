@@ -30,8 +30,10 @@ const tokenSchema = new Schema({
 
 tokenSchema.methods.compareToken = async function (candidateToken, next) {
     try {
+        console.log("candidateToken: ", candidateToken, this.token);
         let isMatch1 = candidateToken === this.token;
-        console.log("isMatch1", isMatch1);
+        console.log(Date.now(), this.createTime);
+
         let isOnTime1 = (Date.now() - this.createTime)/3600000 <= 3;
         return {isMatch: isMatch1, isOnTime: isOnTime1};
     } catch (err) {
