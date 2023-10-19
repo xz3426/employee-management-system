@@ -32,9 +32,9 @@ export const updatePwd = async (data) => {
   });
 };
 
-export const populateDetail = async (data) => {
+export const submitOnboardingForm = async (data) => {
   return await apiCall({
-    url: "/api/auth/populateUserDetail",
+    url: "/api/auth/submitOnboardingForm",
     method: "POST",
     data,
   });

@@ -12,11 +12,13 @@ const Employee = () => {
       setApplicationStatus(response.ApplicationStatus);
     }
     fetchData();
-  }, []);
+  }, [applicationStatus]);
   return (
     <>
       <h1>Employee Page</h1>
       {applicationStatus === "never" && <OnboardingForm />}
+      {applicationStatus === "pending" && <h1>Pending</h1>}
+      {applicationStatus === "rejected" && <h1>Rejected</h1>}
     </>
   );
 };

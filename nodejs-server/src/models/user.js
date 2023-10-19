@@ -24,6 +24,10 @@ const userSchema = new Schema({
   profileImageUrl: {
     type: String,
   },
+  ApplicationStatus: {
+    type: String,
+    default: "never",
+  },
   userDetail: {
     type: Schema.Types.Mixed,
   },

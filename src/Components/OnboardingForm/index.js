@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import useAuth from "hooks/useAuth";
 import { Button, Select, Form, Layout } from "antd";
 import { useNavigate } from "react-router-dom";
-import { populateDetail } from "services/auth";
+import { submitOnboardingForm } from "services/auth";
 import ReferenceForm from "./reference";
 import EmergencyForm from "./emergency";
 import OPTForm from "./optForm";
@@ -43,18 +43,19 @@ const OnboardingForm = () => {
     }
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     data.id = userID;
     data.ApplicationStatus = "pending";
-    data.console.log(data);
-    populateDetail(data);
+    console.log(data);
+    await submitOnboardingForm(data);
+    // Todo: Add Success and error message
+    navigate("/");
   };
 
   return (
     <Content>
       <div style={{ backgroundColor: "#f5f3f38f" }}>
         <h1 style={title}>Onboarding Form</h1>
-
         <div style={container}>
           <Form onFinish={onSubmit} layout="vertical" autoComplete="off">
             <BasicInfoForm />
