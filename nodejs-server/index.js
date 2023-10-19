@@ -17,6 +17,7 @@ app.use(
 
 // Authentication module url
 app.use("/api/auth", require("./src/routes/auth"));
+app.use("/api/hrwork", require("./src/routes/hrwork"));
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });

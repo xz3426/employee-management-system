@@ -72,7 +72,11 @@ export default function SignUp() {
       data["authorization"] = "regular";
     }
     data.username = data.email.split("@")[0];
+    const currentURL = window.location.href;
+    const searchParams = new URLSearchParams(currentURL.split('?')[1]);
 
+    data.token = searchParams.get('token'); 
+    console.log(data.token);
     try {
       await signUp(data);
       setsignUpStatus("succeeded");
