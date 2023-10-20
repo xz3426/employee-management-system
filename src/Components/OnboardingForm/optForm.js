@@ -85,11 +85,13 @@ const fields = {
 
 const props = {
   name: "file",
-  action: "https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188",
+  // action: "https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188",
   headers: {
     authorization: "authorization-text",
   },
+  accept: ".pdf",
   label: "Upload your OPT receipt",
+  rules: [{ required: true, message: "Please upload your OPT receipt " }],
   onChange(info) {
     if (info.file.status !== "uploading") {
       console.log(info.file, info.fileList);
@@ -139,7 +141,7 @@ const OPTForm = () => {
 
         {workTitle === "F1" ? (
           <Form.Item label="OPT Receipt Upload:" name="optReceipt">
-            <Upload {...props}>
+            <Upload {...props} customRequest={(info) => {}}>
               <Button icon={<UploadOutlined />}>Click to Upload</Button>
             </Upload>
           </Form.Item>
@@ -162,6 +164,11 @@ const OPTForm = () => {
             rules={fields.endDate.rules}
           >
             <DatePicker onChange={onEndDateChange} />
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType="submit" style={{ margin: "20px" }}>
+              Submit
+            </Button>
           </Form.Item>
         </Space>
       </div>

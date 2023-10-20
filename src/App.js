@@ -12,8 +12,10 @@ import Error from "./pages/Error";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentUser } from "./app/userSlice";
 import store from "app/store";
-import jwtDecode from "jwt-decode";import OnboardingForm from "./Components/OnboardingForm";
+import jwtDecode from "jwt-decode";
+import OnboardingForm from "./Components/OnboardingForm";
 import Employee from "./pages/Employee";
+import TestOPT from "./pages/Employee/TestOPT";
 
 const { Header, Footer, Content } = Layout;
 
@@ -35,6 +37,7 @@ function App() {
             <Route path="signup" element={<SignUp />} />
             <Route path="signin" element={<SignIn />} />
             <Route path="employee" element={<Employee />} />
+            <Route path="test" element={<TestOPT />} />
             {/* <Route path="employee/visaStatus" element={<VisaStatus />} /> */}
 
             <Route path="*" element={<Error />} />
