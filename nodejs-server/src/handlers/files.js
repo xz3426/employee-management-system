@@ -94,8 +94,6 @@ const deleteFileByIndex = async (req, res, next) => {
     await user.save();
 
     res.status(200).send("File deleted successfully");
-
-    res.send(fileBuffer);
   } catch (error) {
     res.status(500).send("Server Error: " + error.message);
   }

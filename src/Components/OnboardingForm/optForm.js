@@ -11,6 +11,8 @@ import {
   DatePicker,
 } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
+import useAuth from "hooks/useAuth";
+import { deleteFileByIndex } from "services/files";
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -106,6 +108,7 @@ const props = {
 
 const OPTForm = () => {
   const [workTitle, setWorkTitle] = useState("");
+  const { userID } = useAuth();
   const onTitleChange = (value) => {
     setWorkTitle(value);
   };
@@ -115,6 +118,16 @@ const OPTForm = () => {
   };
   const onEndDateChange = (date, dateString) => {
     console.log(date, dateString);
+  };
+
+  const onRemove = async (info) => {
+    const fileIndex = info.response.index;
+    try {
+      await deleteFileByIndex(userID, fileIndex);
+      message.success(`delete File ${fileIndex} successfully`);
+    } catch (error) {
+      message.error(error);
+    }
   };
 
   return (
@@ -140,7 +153,7 @@ const OPTForm = () => {
         </Form.Item>
 
         {workTitle === "F1" ? (
-          <Upload {...props}>
+          <Upload {...props} onRemove={onRemove}>
             <Button icon={<UploadOutlined />}>Click to Upload</Button>
           </Upload>
         ) : null}
