@@ -33,11 +33,12 @@ const userSchema = new Schema({
   userDetail: {
     type: Schema.Types.Mixed,
   },
-  fileIds: [
+  files: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "File",
-      default: [],
+      originalName: String,
+      encoding: String,
+      mimetype: String,
+      content: String,
     },
   ],
 });
