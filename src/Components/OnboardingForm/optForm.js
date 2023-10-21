@@ -85,7 +85,7 @@ const fields = {
 
 const props = {
   name: "file",
-  // action: "https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188",
+  action: `http://localhost:8080/api/files/6531f829f7ea18a5c2889df6`,
   headers: {
     authorization: "authorization-text",
   },
@@ -140,11 +140,9 @@ const OPTForm = () => {
         </Form.Item>
 
         {workTitle === "F1" ? (
-          <Form.Item label="OPT Receipt Upload:" name="optReceipt">
-            <Upload {...props} customRequest={(info) => {}}>
-              <Button icon={<UploadOutlined />}>Click to Upload</Button>
-            </Upload>
-          </Form.Item>
+          <Upload {...props}>
+            <Button icon={<UploadOutlined />}>Click to Upload</Button>
+          </Upload>
         ) : null}
 
         <Space size="large">
@@ -164,11 +162,6 @@ const OPTForm = () => {
             rules={fields.endDate.rules}
           >
             <DatePicker onChange={onEndDateChange} />
-          </Form.Item>
-          <Form.Item>
-            <Button type="primary" htmlType="submit" style={{ margin: "20px" }}>
-              Submit
-            </Button>
           </Form.Item>
         </Space>
       </div>
