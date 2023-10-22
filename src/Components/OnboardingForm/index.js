@@ -45,7 +45,8 @@ const OnboardingForm = () => {
 
   const onSubmit = async (data) => {
     data.id = userID;
-    data.ApplicationStatus = "pending";
+    data.onBoardingApplication.ApplicationStatus = "pending";
+    console.log(data);
     await submitOnboardingForm(data);
     // Todo: Add Success and error message
     navigate("/employee");

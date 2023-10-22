@@ -8,7 +8,10 @@ const Employee = () => {
   const { userID } = useAuth();
   useEffect(() => {
     async function fetchData() {
-      const response = await getUserApplicationStatus(userID);
+      const response = await getUserApplicationStatus(
+        userID,
+        "onBoardingApplication"
+      );
       setApplicationStatus(response.ApplicationStatus);
     }
     fetchData();

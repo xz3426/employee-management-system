@@ -48,9 +48,9 @@ export const getUserDetailById = async (data) => {
   });
 };
 
-export const getUserApplicationStatus = async (id) => {
+export const getUserApplicationStatus = async (userId, applicationName) => {
   return await apiCall({
-    url: `/api/auth/${id}`,
+    url: `/api/auth/${userId}/${applicationName}`,
     method: "GET",
   });
 };
