@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Space,
   Select,
@@ -12,7 +12,7 @@ import {
 } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import useAuth from "hooks/useAuth";
-import { deleteFileByIndex } from "services/files";
+import { deleteFileByIndex, getUserFilesInfo } from "services/files";
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -113,12 +113,14 @@ const OPTForm = () => {
     setWorkTitle(value);
   };
 
-  const onStartDateChange = (date, dateString) => {
-    console.log(date, dateString);
-  };
-  const onEndDateChange = (date, dateString) => {
-    console.log(date, dateString);
-  };
+  useEffect(() => {
+    async function fetchData() {
+      // You can await here
+      const response = await getUserFilesInfo(userID);
+      console.log(response);
+    }
+    fetchData();
+  }, []); // Or [] if effect doesn't need props or state
 
   const onRemove = async (info) => {
     const fileIndex = info.response.index;
@@ -165,7 +167,7 @@ const OPTForm = () => {
             label="Start Date"
             rules={fields.startDate.rules}
           >
-            <DatePicker onChange={onStartDateChange} />
+            <DatePicker />
           </Form.Item>
 
           <Form.Item
@@ -174,7 +176,7 @@ const OPTForm = () => {
             label="End Date"
             rules={fields.endDate.rules}
           >
-            <DatePicker onChange={onEndDateChange} />
+            <DatePicker />
           </Form.Item>
         </Space>
       </div>

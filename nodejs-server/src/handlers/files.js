@@ -19,6 +19,7 @@ const postUserFiles = async (req, res, next) => {
 
     // Store the encoded file and related details in MongoDB
     user.files.push({
+      index: user.files.length,
       originalName: req.file.originalname,
       encoding: req.file.encoding,
       mimetype: req.file.mimetype,
