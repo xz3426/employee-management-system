@@ -34,10 +34,12 @@ const userSchema = new Schema({
     type: String,
   },
   optRecipt: {
-    originalName: String,
-    encoding: String,
-    mimetype: String,
-    content: String,
+    file: {
+      originalName: String,
+      encoding: String,
+      mimetype: String,
+      content: String,
+    },
     status: {
       type: String,
       default: "never",
@@ -45,10 +47,12 @@ const userSchema = new Schema({
     feedback: String,
   },
   optEAD: {
-    originalName: String,
-    encoding: String,
-    mimetype: String,
-    content: String,
+    file: {
+      originalName: String,
+      encoding: String,
+      mimetype: String,
+      content: String,
+    },
     status: {
       type: String,
       default: "never",
@@ -56,10 +60,12 @@ const userSchema = new Schema({
     feedback: String,
   },
   I983: {
-    originalName: String,
-    encoding: String,
-    mimetype: String,
-    content: String,
+    file: {
+      originalName: String,
+      encoding: String,
+      mimetype: String,
+      content: String,
+    },
     status: {
       type: String,
       default: "never",
@@ -67,10 +73,12 @@ const userSchema = new Schema({
     feedback: String,
   },
   I20: {
-    originalName: String,
-    encoding: String,
-    mimetype: String,
-    content: String,
+    file: {
+      originalName: String,
+      encoding: String,
+      mimetype: String,
+      content: String,
+    },
     status: {
       type: String,
       default: "never",

@@ -10,7 +10,7 @@ const {
 
 const upload = multer({ dest: "temp/" }); // Temporarily store files for processing
 
-router.post("/:userId", upload.single("file"), postUserFiles);
+router.post("/:userId/:fileType", upload.single("file"), postUserFiles);
 router.get("/:userId", getUserFilesInfo);
 router.get("/:userId/:fileId", downloadFileById);
 router.delete("/:userId/:fileIndex", deleteFileByIndex);

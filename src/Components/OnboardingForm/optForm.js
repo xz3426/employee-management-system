@@ -12,10 +12,10 @@ import {
 } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import useAuth from "hooks/useAuth";
-import { deleteFileByIndex, getUserFilesInfo } from "services/files";
 
 const { Content } = Layout;
 const { Option } = Select;
+const fileType = "optRecipt";
 
 const fields = {
   workTitle: {
@@ -87,14 +87,34 @@ const fields = {
 
 const props = {
   name: "file",
-  action: `http://localhost:8080/api/files/6531f829f7ea18a5c2889df6`,
   headers: {
     authorization: "authorization-text",
   },
   accept: ".pdf",
   label: "Upload your OPT receipt",
   rules: [{ required: true, message: "Please upload your OPT receipt " }],
-  onChange(info) {
+};
+
+const OPTForm = () => {
+  const [workTitle, setWorkTitle] = useState("");
+  const [fileList, setFileList] = useState([]);
+  const { userID } = useAuth();
+
+  const onTitleChange = (value) => {
+    setWorkTitle(value);
+  };
+
+  const onRemove = async (info) => {
+    try {
+      // await deleteFileByIndex(userID, fileIndex);
+      message.success(`delete File successfully`);
+    } catch (error) {
+      message.error(error);
+    }
+  };
+  const onChange = (info) => {
+    setFileList(...info.fileList);
+    console.log(fileList);
     if (info.file.status !== "uploading") {
       console.log(info.file, info.fileList);
     }
@@ -103,33 +123,15 @@ const props = {
     } else if (info.file.status === "error") {
       message.error(`${info.file.name} file upload failed.`);
     }
-  },
-};
-
-const OPTForm = () => {
-  const [workTitle, setWorkTitle] = useState("");
-  const { userID } = useAuth();
-  const onTitleChange = (value) => {
-    setWorkTitle(value);
   };
 
-  useEffect(() => {
-    async function fetchData() {
-      // You can await here
-      const response = await getUserFilesInfo(userID);
-      console.log(response);
+  const beforeUpload = (file) => {
+    const isLt18M = file.size / 1024 / 1024 < 18;
+    if (!isLt18M) {
+      message.error("file has to be lower than 18MB");
+      return false;
     }
-    fetchData();
-  }, []); // Or [] if effect doesn't need props or state
-
-  const onRemove = async (info) => {
-    const fileIndex = info.response.index;
-    try {
-      await deleteFileByIndex(userID, fileIndex);
-      message.success(`delete File ${fileIndex} successfully`);
-    } catch (error) {
-      message.error(error);
-    }
+    return true;
   };
 
   return (
@@ -155,7 +157,14 @@ const OPTForm = () => {
         </Form.Item>
 
         {workTitle === "F1" ? (
-          <Upload {...props} onRemove={onRemove}>
+          <Upload
+            {...props}
+            onRemove={onRemove}
+            onChange={onChange}
+            beforeUpload={beforeUpload}
+            action={`http://localhost:8080/api/files/${userID}/optRecipt`}
+            disabled={fileList >= 1}
+          >
             <Button icon={<UploadOutlined />}>Click to Upload</Button>
           </Upload>
         ) : null}

@@ -3,8 +3,8 @@ const fs = require("fs").promises;
 
 const postUserFiles = async (req, res, next) => {
   // Fetch the user with the provided ID
-  const user = await db.User.findById(req.params.userId);
-  console.log(req.file);
+  const { userId, fileType } = req.params;
+  const user = await db.User.findById(userId);
   //If user doesn't exist, return an error
   if (!user) {
     return res.status(400).send("User not found");
@@ -13,25 +13,21 @@ const postUserFiles = async (req, res, next) => {
   try {
     // Read file contents
     const fileBuffer = await fs.readFile(req.file.path);
-
     // Convert file contents to Base64
     const encodedFile = fileBuffer.toString("base64");
-
     // Store the encoded file and related details in MongoDB
-    user.files.push({
-      index: user.files.length,
+    user[fileType].file = {
       originalName: req.file.originalname,
       encoding: req.file.encoding,
       mimetype: req.file.mimetype,
       content: encodedFile,
-    });
+    };
 
     await user.save();
     await fs.unlink(req.file.path); // Delete the temporary file
 
     res.status(200).send({
       message: "File uploaded and associated with user",
-      index: user.files.length - 1,
     });
   } catch (error) {
     await fs.unlink(req.file.path); // Ensure temporary file gets deleted in case of an error
