@@ -161,7 +161,7 @@ const updatePwd = async (req, res, next) => {
 
 const submitOnboardingForm = async (req, res, next) => {
   try {
-    const { id, USID, onBoardingApplication } = req.body;
+    const { id, USID } = req.body;
     const user = await db.User.findById(id);
     // Check if the user exists
     if (!user) {
@@ -172,8 +172,7 @@ const submitOnboardingForm = async (req, res, next) => {
     }
     user.USID = USID;
     user.userDetail = req.body;
-    user.onBoardingApplication.ApplicationStatus =
-      onBoardingApplication.ApplicationStatus;
+    user.onBoardingApplication.status = "pending";
     await user.save();
 
     return res
@@ -187,7 +186,7 @@ const submitOnboardingForm = async (req, res, next) => {
 
 const getUserDetailById = async (req, res, next) => {
   try {
-    const userId = req.params.id;
+    const userId = req.params.userId;
     const user = await db.User.findById(userId);
     if (!user) {
       return res.status(404).send({ message: "user not found" });
