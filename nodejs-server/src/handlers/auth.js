@@ -203,14 +203,14 @@ const getUserDetailById = async (req, res, next) => {
 const getUserApplicationStatus = async (req, res, next) => {
   try {
     const { userId, applicationName } = req.params;
-    console.log(req.params);
     const user = await db.User.findById(userId);
     if (!user) {
       return res.status(404).send({ message: "user not found" });
     }
+
     return res
       .status(200)
-      .json({ ApplicationStatus: user[applicationName].status });
+      .json({ ApplicationStatus: JSON.parse(user[applicationName]).status });
   } catch (err) {
     return res.status(400).json({
       message: err.message,

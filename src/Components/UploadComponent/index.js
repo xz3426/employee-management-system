@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Select, Layout, Button, Upload, message } from "antd";
+import { Button, Upload, message } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import useAuth from "hooks/useAuth";
 import { deleteFile } from "services/files";
@@ -17,7 +17,15 @@ const UploadComponent = ({ fileType }) => {
     rules: [{ required: true, message: `Please upload your ${fileType} ` }],
   };
 
-  const onRemove = () => {
+  useEffect(() => {
+    if (isUploaded === true) {
+      message.success("Sign up successfully!");
+    } else if (isUploaded === false) {
+      message.success(`file deleted!`);
+    }
+  }, [isUploaded]);
+
+  const onRemove = (info) => {
     try {
       deleteFile(userID, fileType).then(setIsUploaded(false));
     } catch (error) {

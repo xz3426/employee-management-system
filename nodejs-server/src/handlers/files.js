@@ -45,7 +45,12 @@ const getUserFilesInfo = async (req, res, next) => {
       return res.status(404).send("User not found");
     }
     // Send the files information related to the user
-    res.status(200).json(user.files);
+    res.status(200).json({
+      optRecipt: user.optRecipt,
+      optEAD: user.optEAD,
+      I983: user.I983,
+      I20: user.I20,
+    });
   } catch (error) {
     res.status(500).send("Server Error: " + error.message);
   }

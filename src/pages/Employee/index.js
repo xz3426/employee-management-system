@@ -5,6 +5,7 @@ import OnboardingForm from "Components/OnboardingForm";
 
 const Employee = () => {
   const [applicationStatus, setApplicationStatus] = useState();
+  console.log(applicationStatus);
   const { userID } = useAuth();
   useEffect(() => {
     async function fetchData() {
@@ -12,6 +13,7 @@ const Employee = () => {
         userID,
         "onBoardingApplication"
       );
+      console.log(response);
       setApplicationStatus(response.ApplicationStatus);
     }
     fetchData();
