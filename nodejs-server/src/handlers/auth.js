@@ -165,7 +165,7 @@ const updatePwd = async (req, res, next) => {
 
 const submitOnboardingForm = async (req, res, next) => {
   try {
-    const { id, USID, ApplicationStatus } = req.body;
+    const { id, USID } = req.body;
     const user = await db.User.findById(id);
     // Check if the user exists
     if (!user) {
@@ -174,10 +174,9 @@ const submitOnboardingForm = async (req, res, next) => {
         ok: false,
       });
     }
-    console.log(req.body);
     user.USID = USID;
     user.userDetail = req.body;
-    user.ApplicationStatus = req.body.ApplicationStatus;
+    user.onBoardingApplication.status = "pending";
     await user.save();
 
     return res
@@ -191,12 +190,11 @@ const submitOnboardingForm = async (req, res, next) => {
 
 const getUserDetailById = async (req, res, next) => {
   try {
-    const userId = req.params.id;
+    const userId = req.params.userId;
     const user = await db.User.findById(userId);
     if (!user) {
       return res.status(404).send({ message: "user not found" });
     }
-    console.log(user);
     return res.status(200).json(user.userDetail);
   } catch (err) {
     return res.status(400).json({
@@ -208,12 +206,15 @@ const getUserDetailById = async (req, res, next) => {
 
 const getUserApplicationStatus = async (req, res, next) => {
   try {
-    const userId = req.params.id;
+    const { userId, applicationName } = req.params;
     const user = await db.User.findById(userId);
     if (!user) {
       return res.status(404).send({ message: "user not found" });
     }
-    return res.status(200).json({ ApplicationStatus: user.ApplicationStatus });
+
+    return res
+      .status(200)
+      .json({ ApplicationStatus: JSON.parse(user[applicationName]).status });
   } catch (err) {
     return res.status(400).json({
       message: err.message,

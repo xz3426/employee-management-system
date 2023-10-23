@@ -119,8 +119,24 @@ const deleteToken = async (req, res, next) => {
     await db.Token.deleteOne({user: user});
     return res.status(200).json();
   }catch (error){
-    return res.status(400).json();
+    return res.status(400).json();  
   }
 }
+
+
+const fetchUsers = async (req, res, next) => {
+  try {
+    const users = await db.User.find({});
+    return res.status(200).json(users);
+
+  }catch (error){
+    console.error("Error fetch users");
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}
+
+
+
+
 
 module.exports = {sendToken, generateUser, fetchTokens, deleteToken};

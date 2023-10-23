@@ -15,6 +15,6 @@ router.post("/signin", signin);
 router.post("/changePwd", changePwd);
 router.post("/updatePwd", updatePwd);
 router.post("/submitOnboardingForm", submitOnboardingForm);
-router.get("/userDetail/:id", getUserDetailById);
-router.get("/:id", getUserApplicationStatus);
+router.get("/userDetail/:userId", getUserDetailById);
+router.get("/:userId/:applicationName", getUserApplicationStatus);
 module.exports = router;

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./style.module.css"; // Import the CSS Module
 import { fetchTokens, sendToken, deleteToken, generateUser } from "services/hrwork";
 
-const TokenTable = () => {
+const TokenTable = ({ newUser }) => {
   const [tokens, setTokens] = useState([]);
   const [filter, setFilter] = useState("All");
   const [filteredTokens, setFilteredTokens] = useState([]);
@@ -17,7 +17,7 @@ const TokenTable = () => {
         setFilteredTokens(data); // Initialize filteredTokens with all tokens
       })
       .catch((error) => console.error("Error fetching tokens:", error));
-  }, []);
+  }, [newUser]);
 
   const handleResendToken = (hr, employee) => {
     // Call the sendToken API with the HR and employee data

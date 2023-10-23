@@ -18,7 +18,7 @@ export const sendToken = async (data) => {
   });
 };
 
-export const fetchTokens = async (data) => {
+export const fetchTokens = async () => {
   return await apiCall({
     url: "/api/hrwork/fetchTokens",
     method: "GET",
@@ -33,3 +33,11 @@ export const deleteToken = async (data) => {
     data,
   });
 };
+
+
+export const fetchUsers = async () => {
+  return await apiCall({
+    url: "/api/hrwork/fetchUsers",
+    method: "GET"
+  });
+}
