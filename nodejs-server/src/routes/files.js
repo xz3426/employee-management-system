@@ -4,7 +4,7 @@ const multer = require("multer");
 const {
   postUserFiles,
   getUserFilesInfo,
-  downloadFileById,
+  downloadFileByType,
   deleteFile,
 } = require("../handlers/files");
 
@@ -12,7 +12,7 @@ const upload = multer({ dest: "temp/" }); // Temporarily store files for process
 
 router.post("/:userId/:fileType", upload.single("file"), postUserFiles);
 router.get("/:userId", getUserFilesInfo);
-router.get("/:userId/:fileId", downloadFileById);
+router.get("/:userId/:fileType", downloadFileByType);
 router.delete("/:userId/:fileType", deleteFile);
 
 module.exports = router;
