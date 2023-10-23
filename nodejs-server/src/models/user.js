@@ -44,7 +44,7 @@ const userSchema = new Schema({
       type: String,
       default: "never",
     },
-    feedback: String,
+    feedback: { type: String, default: "" },
   },
   optEAD: {
     file: {
@@ -57,7 +57,7 @@ const userSchema = new Schema({
       type: String,
       default: "never",
     },
-    feedback: String,
+    feedback: { type: String, default: "" },
   },
   I983: {
     file: {
@@ -70,7 +70,7 @@ const userSchema = new Schema({
       type: String,
       default: "never",
     },
-    feedback: String,
+    feedback: { type: String, default: "" },
   },
   I20: {
     file: {
@@ -83,7 +83,7 @@ const userSchema = new Schema({
       type: String,
       default: "never",
     },
-    feedback: String,
+    feedback: { type: String, default: "" },
   },
 
   onBoardingApplication: {
@@ -91,7 +91,7 @@ const userSchema = new Schema({
       type: String,
       default: "never",
     },
-    Message: String,
+    feedback: { type: String, default: "" },
     onBoardingDetail: {
       detail: Schema.Types.Mixed,
       isUSCitizen: Boolean,

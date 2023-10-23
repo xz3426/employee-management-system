@@ -39,7 +39,10 @@ const postUserFiles = async (req, res, next) => {
 const getUserFilesInfo = async (req, res, next) => {
   try {
     const user = await db.User.findById(req.params.userId, {
-      "files.content": 0,
+      "optRecipt.file.content": 0, // exclucde optRecipt.file field
+      "optEAD.file.content": 0,
+      "I983.file.content": 0,
+      "I20.file.content": 0,
     });
     if (!user) {
       return res.status(404).send("User not found");
