@@ -22,12 +22,13 @@ const postUserFiles = async (req, res, next) => {
       mimetype: req.file.mimetype,
       content: encodedFile,
     };
-
+    user[fileType].status = "pending";
     await user.save();
     await fs.unlink(req.file.path); // Delete the temporary file
 
     res.status(200).send({
       message: "File uploaded and associated with user",
+      fileType: fileType,
     });
   } catch (error) {
     await fs.unlink(req.file.path); // Ensure temporary file gets deleted in case of an error
@@ -71,28 +72,21 @@ const downloadFileById = async (req, res, next) => {
   }
 };
 
-const deleteFileByIndex = async (req, res, next) => {
+const deleteFile = async (req, res, next) => {
   try {
-    const user = await db.User.findById(req.params.userId);
+    const { userId, fileType } = req.params;
+    const user = await db.User.findById(userId);
 
     if (!user) {
       return res.status(404).send("User not found");
     }
-
-    const fileIndex = parseInt(req.params.fileIndex, 10);
-    if (isNaN(fileIndex) || fileIndex < 0 || fileIndex >= user.files.length) {
-      return res.status(400).send("Invalid file index");
-    }
-
-    // Remove the file at the given index
-    user.files.splice(fileIndex, 1);
-
+    user[fileType].file = null;
+    user[fileType].status = "never";
     // Save the updated user data
     await user.save();
-
-    res.status(200).send("File deleted successfully");
+    res.status(200).send({ message: "File deleted successfully" });
   } catch (error) {
-    res.status(500).send("Server Error: " + error.message);
+    res.status(500).send({ message: "Server Error: " + error.message });
   }
 };
 
@@ -100,5 +94,5 @@ module.exports = {
   postUserFiles,
   getUserFilesInfo,
   downloadFileById,
-  deleteFileByIndex,
+  deleteFile,
 };

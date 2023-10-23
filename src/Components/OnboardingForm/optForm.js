@@ -10,12 +10,12 @@ import {
   message,
   DatePicker,
 } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
 import useAuth from "hooks/useAuth";
+import { deleteFile } from "services/files";
+import UploadComponent from "../UploadComponent";
 
 const { Content } = Layout;
 const { Option } = Select;
-const fileType = "optRecipt";
 
 const fields = {
   workTitle: {
@@ -85,53 +85,11 @@ const fields = {
   },
 };
 
-const props = {
-  name: "file",
-  headers: {
-    authorization: "authorization-text",
-  },
-  accept: ".pdf",
-  label: "Upload your OPT receipt",
-  rules: [{ required: true, message: "Please upload your OPT receipt " }],
-};
-
 const OPTForm = () => {
   const [workTitle, setWorkTitle] = useState("");
-  const [fileList, setFileList] = useState([]);
-  const { userID } = useAuth();
 
   const onTitleChange = (value) => {
     setWorkTitle(value);
-  };
-
-  const onRemove = async (info) => {
-    try {
-      // await deleteFileByIndex(userID, fileIndex);
-      message.success(`delete File successfully`);
-    } catch (error) {
-      message.error(error);
-    }
-  };
-  const onChange = (info) => {
-    setFileList(...info.fileList);
-    console.log(fileList);
-    if (info.file.status !== "uploading") {
-      console.log(info.file, info.fileList);
-    }
-    if (info.file.status === "done") {
-      message.success(`${info.file.name} file uploaded successfully`);
-    } else if (info.file.status === "error") {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  };
-
-  const beforeUpload = (file) => {
-    const isLt18M = file.size / 1024 / 1024 < 18;
-    if (!isLt18M) {
-      message.error("file has to be lower than 18MB");
-      return false;
-    }
-    return true;
   };
 
   return (
@@ -156,18 +114,7 @@ const OPTForm = () => {
           </Select>
         </Form.Item>
 
-        {workTitle === "F1" ? (
-          <Upload
-            {...props}
-            onRemove={onRemove}
-            onChange={onChange}
-            beforeUpload={beforeUpload}
-            action={`http://localhost:8080/api/files/${userID}/optRecipt`}
-            disabled={fileList >= 1}
-          >
-            <Button icon={<UploadOutlined />}>Click to Upload</Button>
-          </Upload>
-        ) : null}
+        {workTitle === "F1" ? <UploadComponent fileType={"optRecipt"} /> : null}
 
         <Space size="large">
           <Form.Item

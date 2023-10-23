@@ -1,8 +1,8 @@
 import apiCall from "./api";
 
-export const deleteFileByIndex = async (userId, fileIndex) => {
+export const deleteFile = async (userId, fileType) => {
   return await apiCall({
-    url: `/api/files/${userId}/${fileIndex}`,
+    url: `/api/files/${userId}/${fileType}`,
     method: "DELETE",
   });
 };
