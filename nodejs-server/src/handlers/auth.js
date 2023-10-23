@@ -29,7 +29,12 @@ const signup = async (req, res, next) => {
         };
         return res.status(400).json({error});
       }
-      db.Token.deleteOne({email} );
+      // db.Token.deleteOne({user:email} );
+      const filter = {user: email};
+      const update = {
+        $set: {registration: "Registered"}
+      };
+      await db.Token.updateOne(filter, update);
     }
     let user = await db.User.create(req.body);
     let { id, username,  profileImageUrl } = user;

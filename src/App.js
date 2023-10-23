@@ -14,7 +14,7 @@ import { setCurrentUser } from "./app/userSlice";
 import store from "app/store";
 import jwtDecode from "jwt-decode";import OnboardingForm from "./Components/OnboardingForm";
 import Employee from "./pages/Employee";
-
+import HR from "./pages/HR";
 const { Header, Footer, Content } = Layout;
 
 if (localStorage.getItem("token")) {
@@ -35,6 +35,7 @@ function App() {
             <Route path="signup" element={<SignUp />} />
             <Route path="signin" element={<SignIn />} />
             <Route path="employee" element={<Employee />} />
+            <Route path="hr" element={<HR />} />
             {/* <Route path="employee/visaStatus" element={<VisaStatus />} /> */}
 
             <Route path="*" element={<Error />} />
