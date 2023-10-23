@@ -85,7 +85,7 @@ const deleteFile = async (req, res, next) => {
     if (!user) {
       return res.status(404).send("User not found");
     }
-    user[fileType].file = null;
+    user[fileType].file = {};
     user[fileType].status = "never";
     // Save the updated user data
     await user.save();
