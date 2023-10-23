@@ -56,10 +56,10 @@ const NavBar_ = () => {
           {authorization === "regular" && (
             <div style={{ display: "flex", padding: "20px" }}>
               <Link>
-                <h2> Regular 1 </h2>
+                <h2> My Information </h2>
               </Link>
               <Link>
-                <h2> Regular 2 </h2>
+                <h2> Visa Status </h2>
               </Link>
             </div>
           )}

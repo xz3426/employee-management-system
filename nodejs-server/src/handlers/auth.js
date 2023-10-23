@@ -4,30 +4,31 @@ const jwt = module.require("jsonwebtoken");
 const signup = async (req, res, next) => {
   try {
     const { email, authorization, token } = req.body;
-    if (authorization !== 'hr'){
-      const newUser = await db.Token.findOne({ user:email });
+    if (authorization !== "hr") {
+      const newUser = await db.Token.findOne({ user: email });
       if (!newUser) {
-        const error = { 
-          message: "Invalid email/password" , 
-          ok: false}
-        return res.status(400).json({error});
+        const error = {
+          message: "Invalid email/password",
+          ok: false,
+        };
+        return res.status(400).json({ error });
       }
       const result = await newUser.compareToken(token);
       let isMatch = result.isMatch;
       let isOnTime = result.isOnTime;
       if (!isMatch) {
         const error = {
-          message:'Incorrect Token',
+          message: "Incorrect Token",
           ok: false,
         };
-        return res.status(400).json({error});
+        return res.status(400).json({ error });
       }
       if (!isOnTime) {
         const error = {
-          message:'This token is no longer vaild, Please contact your HR',
+          message: "This token is no longer vaild, Please contact your HR",
           ok: false,
         };
-        return res.status(400).json({error});
+        return res.status(400).json({ error });
       }
       // db.Token.deleteOne({user:email} );
       const filter = {user: email};
@@ -37,7 +38,7 @@ const signup = async (req, res, next) => {
       await db.Token.updateOne(filter, update);
     }
     let user = await db.User.create(req.body);
-    let { id, username,  profileImageUrl } = user;
+    let { id, username, profileImageUrl } = user;
     let token1 = await jwt.sign(
       { id, username, authorization, profileImageUrl },
       process.env.JWT_SECRET
@@ -207,11 +208,12 @@ const getUserDetailById = async (req, res, next) => {
 const getUserApplicationStatus = async (req, res, next) => {
   try {
     const { userId, applicationName } = req.params;
+    
     const user = await db.User.findById(userId);
     if (!user) {
-      return res.status(404).send({ message: "user not found" });
+      return res.status(404).send({ message: "user not found" ,ok : false});
     }
-
+    console.log("11111",JSON.parse(user[applicationName]).status);
     return res
       .status(200)
       .json({ ApplicationStatus: JSON.parse(user[applicationName]).status });

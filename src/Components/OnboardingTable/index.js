@@ -36,7 +36,7 @@ const OnboardingTable = () =>{
     return (
         <div>
             <h2 className={styles.h2}>Onboarding Application Table</h2>
-            <div className={styles.table-container}>
+            <div >
                 <table className={styles.table}>
                     <thead>
                         <tr>
@@ -47,7 +47,7 @@ const OnboardingTable = () =>{
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredUsers.map((user, index) => (
+                        {users.map((user, index) => (
                         <tr key={user.id} className={index % 2 === 0 ? styles["tr-even"] : ""}>
                             <td className={styles.td}>{user.name}</td>
                             <td className={styles.td}>{user.email}</td>

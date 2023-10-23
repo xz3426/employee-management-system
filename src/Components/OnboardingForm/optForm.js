@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Space,
   Select,
@@ -10,7 +10,9 @@ import {
   message,
   DatePicker,
 } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
+import useAuth from "hooks/useAuth";
+import { deleteFile } from "services/files";
+import UploadComponent from "../UploadComponent";
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -83,36 +85,11 @@ const fields = {
   },
 };
 
-const props = {
-  name: "file",
-  action: "https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188",
-  headers: {
-    authorization: "authorization-text",
-  },
-  label: "Upload your OPT receipt",
-  onChange(info) {
-    if (info.file.status !== "uploading") {
-      console.log(info.file, info.fileList);
-    }
-    if (info.file.status === "done") {
-      message.success(`${info.file.name} file uploaded successfully`);
-    } else if (info.file.status === "error") {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-};
-
 const OPTForm = () => {
   const [workTitle, setWorkTitle] = useState("");
+
   const onTitleChange = (value) => {
     setWorkTitle(value);
-  };
-
-  const onStartDateChange = (date, dateString) => {
-    console.log(date, dateString);
-  };
-  const onEndDateChange = (date, dateString) => {
-    console.log(date, dateString);
   };
 
   return (
@@ -137,13 +114,7 @@ const OPTForm = () => {
           </Select>
         </Form.Item>
 
-        {workTitle === "F1" ? (
-          <Form.Item label="OPT Receipt Upload:" name="optReceipt">
-            <Upload {...props}>
-              <Button icon={<UploadOutlined />}>Click to Upload</Button>
-            </Upload>
-          </Form.Item>
-        ) : null}
+        {workTitle === "F1" ? <UploadComponent fileType={"optRecipt"} /> : null}
 
         <Space size="large">
           <Form.Item
@@ -152,7 +123,7 @@ const OPTForm = () => {
             label="Start Date"
             rules={fields.startDate.rules}
           >
-            <DatePicker onChange={onStartDateChange} />
+            <DatePicker />
           </Form.Item>
 
           <Form.Item
@@ -161,7 +132,7 @@ const OPTForm = () => {
             label="End Date"
             rules={fields.endDate.rules}
           >
-            <DatePicker onChange={onEndDateChange} />
+            <DatePicker />
           </Form.Item>
         </Space>
       </div>
