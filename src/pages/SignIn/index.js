@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import AuthForm from 'Components/AuthForm';
 import { authUser } from 'app/userSlice';
 import { Layout, message} from "antd";
+import useAuth from 'hooks/useAuth';
 
 export default function SignIn() {
   const { Content } = Layout;
@@ -12,12 +13,17 @@ export default function SignIn() {
   const navigate = useNavigate();
   const location = useLocation();
   const signInStatus = useSelector((state) => state.user.status);
+  const { authorization } = useAuth();
   const signInError = useSelector((state) => state.error.message);  
   
   useEffect(()=>{
     if (signInStatus === 'succeeded') {
       message.success("Sign in successfully");
-      navigate('/');
+      if (authorization === "hr"){
+        navigate('/hr');
+      }else if (authorization === "regular"){
+        navigate('/employee');
+      }
     } else if (signInStatus === 'failed'){
       message.error(signInError);
     }
