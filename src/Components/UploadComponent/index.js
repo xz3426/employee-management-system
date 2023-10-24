@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Button, Upload, message } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import useAuth from "hooks/useAuth";
-import { deleteFile } from "services/files";
+import { deleteFile, getUserFilesInfo } from "services/files";
+import { BACKEND_URI } from "consts";
 
 const UploadComponent = ({ fileType }) => {
   const { userID } = useAuth();
   const [isUploaded, setIsUploaded] = useState(false);
+  const [file, setFile] = useState([]);
   const props = {
     name: "file",
     headers: {
@@ -16,18 +18,29 @@ const UploadComponent = ({ fileType }) => {
     label: "Upload your ${fileType}",
     rules: [{ required: true, message: `Please upload your ${fileType} ` }],
   };
-
   useEffect(() => {
-    if (isUploaded === true) {
-      message.success("Upload Successfully!");
-    } else if (isUploaded === false) {
-      message.success(`file deleted!`);
-    }
-  }, [isUploaded]);
+    const fetchData = async () => {
+      const response = await getUserFilesInfo(userID);
+      const fileName = response[fileType].file.originalName;
+      if (fileName) {
+        setIsUploaded(true);
+        setFile([
+          {
+            uid: "-1",
+            name: fileName,
+            status: "done",
+            url: `http://${BACKEND_URI}/files/${userID}/${fileType}`,
+          },
+        ]);
+      }
+    };
+    fetchData();
+  }, []);
 
   const onRemove = (info) => {
     try {
       deleteFile(userID, fileType).then(setIsUploaded(false));
+      setFile([]);
     } catch (error) {
       message.error(error);
     }
@@ -41,6 +54,7 @@ const UploadComponent = ({ fileType }) => {
     } else if (info.file.status === "error") {
       message.error(`${info.file.name} file upload failed.`);
     }
+    setFile(info.fileList);
   };
 
   const beforeUpload = (file) => {
@@ -58,6 +72,7 @@ const UploadComponent = ({ fileType }) => {
       onRemove={onRemove}
       onChange={onChange}
       beforeUpload={beforeUpload}
+      fileList={file}
       action={`http://localhost:8080/api/files/${userID}/${fileType}`}
     >
       <Button disabled={isUploaded} icon={<UploadOutlined />}>

@@ -39,51 +39,38 @@ const container = {
 };
 
 const PersonalInfo = () => {
-  const { id } = useParams();
-  const [isLoading, setIsLoading] = useState(false);
+  const { userID } = useAuth();
 
   const [isAmerican, setIsAmerican] = useState(true);
+  const [editClicked, setEditClicked] = useState(false);
+  const [userDetail, setUserDetail] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
-      const user = await getUserDetailById(id);
-      setIsAmerican(user.USID);
-      setIsLoading(false);
+      const userDetail = await getUserDetailById(userID);
+      setIsAmerican(userDetail.USID);
+      setUserDetail(userDetail);
     }
-    // fetchData();
+    fetchData();
   }, []);
-
+  console.log(userDetail);
   const onSubmit = async (data) => {};
 
   const editOnClick = () => {};
-
-  const props = {
-    name: "file",
-    action: "https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188",
-    headers: {
-      authorization: "authorization-text",
-    },
-    label: "Upload your OPT receipt",
-    onChange(info) {
-      if (info.file.status !== "uploading") {
-        console.log(info.file, info.fileList);
-      }
-      if (info.file.status === "done") {
-        message.success(`${info.file.name} file uploaded successfully`);
-      } else if (info.file.status === "error") {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
-  };
 
   return (
     <Content>
       <div style={{ backgroundColor: "#f5f3f38f" }}>
         <h1 style={title}>Personal Information</h1>
         <div style={container}>
-          <Form onFinish={onSubmit} layout="vertical" autoComplete="off">
-            <BasicInfoForm />
+          <Form
+            onFinish={onSubmit}
+            initialValues={userDetail}
+            layout="vertical"
+            autoComplete="off"
+          >
+            <BasicInfoForm userDetail={userDetail} />
 
             {isAmerican && (
               <Space size="large">
@@ -103,21 +90,40 @@ const PersonalInfo = () => {
             <EmergencyForm />
             <br />
 
-            <Form.Item label="OPT Receipt Upload:" name="optReceipt">
-              <Upload {...props}>
-                <Button icon={<UploadOutlined />}>Click to Upload</Button>
-              </Upload>
-            </Form.Item>
+            {editClicked && (
+              <>
+                <Button
+                  type="primary"
+                  onClick={() => {
+                    setEditClicked(false);
+                  }}
+                  style={{ margin: "20px" }}
+                >
+                  Save
+                </Button>
+                <Button
+                  type="primary"
+                  onClick={() => {
+                    setEditClicked(false);
+                  }}
+                  style={{ margin: "20px" }}
+                >
+                  Cancle
+                </Button>
+              </>
+            )}
 
-            <Form.Item>
+            {!editClicked && (
               <Button
                 type="primary"
-                editOnClick={editOnClick}
+                onClick={() => {
+                  setEditClicked(true);
+                }}
                 style={{ margin: "20px" }}
               >
                 Edit
               </Button>
-            </Form.Item>
+            )}
           </Form>
         </div>
       </div>
