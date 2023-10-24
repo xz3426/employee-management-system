@@ -54,3 +54,17 @@ export const getUserApplicationStatus = async (id) => {
     method: "GET",
   });
 };
+
+export const fetchAllUsers = async () => {
+  return await apiCall({
+    url: `/api/auth/users`,
+    method: "GET",
+  });
+};
+
+export const searchUsers = async (key) => {
+  return await apiCall({
+    url: `/api/auth/search/${key}`,
+    method: "GET",
+  });
+};
