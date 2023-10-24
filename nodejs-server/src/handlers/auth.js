@@ -213,10 +213,16 @@ const getUserApplicationStatus = async (req, res, next) => {
     if (!user) {
       return res.status(404).send({ message: "user not found" ,ok : false});
     }
-    console.log("11111",JSON.parse(user[applicationName]).status);
+    if (parseInt(process.versions.node.split('.')[0]) >= 18) {
+      // Code specific to Node.js 18
+      var status = user[applicationName].status; 
+    } else {
+      // Code for Node.js 16 and earlier
+      var status = JSON.parse(user[applicationName]).status; 
+    }
     return res
       .status(200)
-      .json({ ApplicationStatus: JSON.parse(user[applicationName]).status });
+      .json({ ApplicationStatus: status });
   } catch (err) {
     return res.status(400).json({
       message: err.message,

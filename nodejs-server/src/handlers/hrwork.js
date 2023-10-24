@@ -117,18 +117,18 @@ const deleteToken = async (req, res, next) => {
   try{
     const {user} = req.body;
     await db.Token.deleteOne({user: user});
-    return res.status(200).json();
+    return res.status(200).json({user: user});
   }catch (error){
-    return res.status(400).json();  
+    return res.status(400).json({message:error.message, ok: false});  
   }
 }
 
 
 const fetchUsers = async (req, res, next) => {
   try {
-    const users = await db.User.find({});
-    return res.status(200).json(users);
+    const users = await db.User.find({authorization: "regular"});
 
+    return res.status(200).json(users);
   }catch (error){
     console.error("Error fetch users");
     res.status(500).json({ error: "Internal Server Error" });
@@ -139,4 +139,4 @@ const fetchUsers = async (req, res, next) => {
 
 
 
-module.exports = {sendToken, generateUser, fetchTokens, deleteToken};
+module.exports = {sendToken, generateUser, fetchTokens, deleteToken, fetchUsers};

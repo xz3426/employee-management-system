@@ -61,15 +61,13 @@ const getUserFilesInfo = async (req, res, next) => {
 
 const downloadFileByType = async (req, res, next) => {
   try {
-    const [userId, fileType] = req.params;
+    const {userId, fileType} = req.params;
     const user = await db.User.findById(userId);
-    console.log("fjoio");
     if (!user) {
       return res.status(404).send("User not found");
     }
 
     const file = user[fileType].file;
-    console.log(file);
     // Convert the Base64 encoded content back to a buffer
     const fileBuffer = Buffer.from(file.content, "base64");
 

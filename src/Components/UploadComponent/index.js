@@ -19,7 +19,7 @@ const UploadComponent = ({ fileType }) => {
 
   useEffect(() => {
     if (isUploaded === true) {
-      message.success("Sign up successfully!");
+      message.success("Upload Successfully!");
     } else if (isUploaded === false) {
       message.success(`file deleted!`);
     }

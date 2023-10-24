@@ -26,7 +26,6 @@ export const fetchTokens = async () => {
 };
 
 export const deleteToken = async (data) => {
-  console.log(data);
   return await apiCall({
     url: "/api/hrwork/deleteToken",
     method: "POST",
