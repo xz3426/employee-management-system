@@ -41,10 +41,11 @@ const EntireProfile = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(test);
+  const { userId } = useAuth();
 
   useEffect(() => {
     async function fetchData() {
-      const response = await getUserDetailById(id);
+      const response = await getUserDetailById(userId);
       setUser(response);
       setIsLoading(false);
     }
@@ -60,35 +61,37 @@ const EntireProfile = () => {
             <h2>Employee Information Detail</h2>
             <Space size="large">
               <Avatar size="large" src={user.profileImageUrl}></Avatar>
-              <h3> {user.firstName + " " + user.midName + " " + user.lastName}</h3>
+              <h3>
+                {" "}
+                {user.firstName + " " + user.midName + " " + user.lastName}
+              </h3>
             </Space>
 
             <Space size="large">
-              <p> Email: {user.email }</p>
-              <p> Cell Phone Number: {user.cellPhone }</p>
-              <p> Work Phone Number: {user.workPhone }</p>
+              <p> Email: {user.email}</p>
+              <p> Cell Phone Number: {user.cellPhone}</p>
+              <p> Work Phone Number: {user.workPhone}</p>
             </Space>
             <p>Current Address: {user.address}</p>
             <Space size="large">
-              <p> Date of Birth: {user.birth }</p>
-              <p> Gender: {user.gender }</p>
+              <p> Date of Birth: {user.birth}</p>
+              <p> Gender: {user.gender}</p>
             </Space>
             <Space size="large">
-              <p> Visa Title: {user.workTitle }</p>
-              <p> Start Date: {user.startDate }</p>
-              <p> End Date: {user.endDate }</p>
+              <p> Visa Title: {user.workTitle}</p>
+              <p> Start Date: {user.startDate}</p>
+              <p> End Date: {user.endDate}</p>
             </Space>
 
             <h4>Emergency Contact:</h4>
             <Space size="large">
-              <p> Fisrt Name: {user.birth }</p>
-              <p> Mid Name: {user.gender }</p>
-              <p> Last Name: {user.gender }</p>
+              <p> Fisrt Name: {user.birth}</p>
+              <p> Mid Name: {user.gender}</p>
+              <p> Last Name: {user.gender}</p>
             </Space>
-            <p> Phone Number: {user.birth }</p>
-            <p> Email: {user.birth }</p>
-            <p> Relationship: {user.birth }</p>
-
+            <p> Phone Number: {user.birth}</p>
+            <p> Email: {user.birth}</p>
+            <p> Relationship: {user.birth}</p>
           </div>
         )}
       </div>

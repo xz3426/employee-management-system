@@ -40,11 +40,10 @@ export const submitOnboardingForm = async (data) => {
   });
 };
 
-export const getUserDetailById = async (data) => {
+export const getUserDetailById = async (userId) => {
   return await apiCall({
-    url: `/api/auth/userDetail/${data.id}`,
+    url: `/api/auth/userDetail/${userId}`,
     method: "GET",
-    data,
   });
 };
 
