@@ -55,10 +55,10 @@ const NavBar_ = () => {
 
           {authorization === "regular" && (
             <div style={{ display: "flex", padding: "20px" }}>
-              <Link>
+              <Link to="/employee/personalInfo">
                 <h2> My Information </h2>
               </Link>
-              <Link>
+              <Link to="/employee/visaStatus">
                 <h2> Visa Status </h2>
               </Link>
             </div>
