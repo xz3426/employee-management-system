@@ -52,7 +52,8 @@ const sendToken = async (req, res, next) => {
         const update = {
           $set: {token: token, createTime: Date.now(), registration: "Token Sent"}
         };
-        let tokendb = await db.Token.updateOne(filter, update);
+        await db.Token.updateOne(filter, update);
+        let tokendb = await db.Token.findOne({user: user});
         // let tokendb = await db.Token.create(tokenRecord)
         // if (!tokendb){
         //     const error = {
@@ -126,7 +127,12 @@ const deleteToken = async (req, res, next) => {
 
 const fetchUsers = async (req, res, next) => {
   try {
-    const users = await db.User.find({authorization: "regular"});
+    const users = await db.User.find({authorization: "regular"}, {
+      "optRecipt.file.content": 0,
+      "optEAD.file.content": 0,
+      "I983.file.content": 0,
+      "I20.file.content": 0,
+    });
 
     return res.status(200).json(users);
   }catch (error){
@@ -143,7 +149,7 @@ const fetchAllUsers = async (req, res, next) => {
     return res.status(200).json(products);
   } catch (err) {
     return res.status(400).json({
-      message: err.message,
+      message: err.message,  
       ok: false,
     });
   }
