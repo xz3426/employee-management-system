@@ -1,11 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const { sendToken, fetchTokens, generateUser, deleteToken, fetchUsers } = require("../handlers/hrwork");
+const { sendToken, fetchTokens, generateUser, deleteToken, fetchUsers, fetchAllUsers, searchUsers } = require("../handlers/hrwork");
 
 router.post("/sendToken", sendToken);
 router.post("/generateUser", generateUser);
 router.get("/fetchTokens", fetchTokens);
 router.post("/deleteToken", deleteToken);
 router.get("/fetchUsers", fetchUsers);
+router.get("/users", fetchAllUsers);
+router.get("search/:key", searchUsers);
 
 module.exports = router;
