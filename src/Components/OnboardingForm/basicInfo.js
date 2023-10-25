@@ -173,18 +173,10 @@ const fields = {
   },
 };
 
-const BasicInfoForm = ({ userDetail }) => {
-  const [profileImage, setProfileImage] = useState();
-  useEffect(() => {
-    if (userDetail?.imgLink !== undefined) {
-      setProfileImage(userDetail.imgLink);
-    }
-  }, []);
-
-  const onBirthDateChange = (date, dateString) => {
-    console.log(date, dateString);
-  };
-
+const BasicInfoForm = ({ profileImageUrl }) => {
+  const [profileImage, setProfileImage] = useState(
+    profileImageUrl ? profileImageUrl : ""
+  );
   return (
     <Content>
       <div style={{ backgroundColor: "white" }}>
@@ -286,7 +278,7 @@ const BasicInfoForm = ({ userDetail }) => {
             label="Date of Birth"
             rules={fields.birth.rules}
           >
-            <DatePicker onChange={onBirthDateChange} />
+            <DatePicker />
           </Form.Item>
         </Space>
 
