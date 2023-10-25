@@ -53,15 +53,9 @@ const sendToken = async (req, res, next) => {
           $set: {token: token, createTime: Date.now(), registration: "Token Sent"}
         };
         await db.Token.updateOne(filter, update);
+
         let tokendb = await db.Token.findOne({user:user});
-        // let tokendb = await db.Token.create(tokenRecord)
-        // if (!tokendb){
-        //     const error = {
-        //         message:'fail generate Token',
-        //         ok: false,
-        //       };
-        //       return res.status(400).json({error});
-        // }
+
         return res.status(200).json({tokendb});
         
     } catch(err) {
