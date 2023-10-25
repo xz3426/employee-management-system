@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "hooks/useAuth";
-import { Button, Select, Form, Layout, message } from "antd";
-import { useNavigate, useParams } from "react-router-dom";
-import { UploadOutlined } from "@ant-design/icons";
+import { Button, Select, Form, Layout, message, Modal } from "antd";
+
 import { submitOnboardingForm } from "services/auth";
-import { getUserDetailById } from "services/auth";
 
 import EmergencyForm from "Components/OnboardingForm/emergency";
 import BasicInfoForm from "Components/OnboardingForm/basicInfo";
@@ -32,6 +30,7 @@ const container = {
 const PersonalInfoDisplay = ({ userDetail, fetchData }) => {
   const [editClicked, setEditClicked] = useState(false);
   const [isAmerican, setIsAmerican] = useState(true);
+  const [form] = Form.useForm();
 
   const { userID } = useAuth();
   useEffect(() => {
@@ -43,14 +42,27 @@ const PersonalInfoDisplay = ({ userDetail, fetchData }) => {
     }
   }, []);
   const onSubmit = async (data) => {
+    setEditClicked(false);
     data.id = userID;
-    console.log(data);
     try {
       await submitOnboardingForm(data);
       message.success("onBoarding for submit successfully");
     } catch (error) {
       message.error(error.message);
     }
+  };
+
+  const onCancel = () => {
+    Modal.confirm({
+      title: "Do you want to discard your changes?",
+      content: "All unsaved changes will be lost.",
+      okText: "Discard",
+      cancelText: "Cancel",
+      onOk: async () => {
+        form.resetFields(); // reset the form to its initial values
+        setEditClicked(false);
+      },
+    });
   };
 
   const onUSIDChange = (value) => {
@@ -74,6 +86,7 @@ const PersonalInfoDisplay = ({ userDetail, fetchData }) => {
           initialValues={userDetail}
           layout="vertical"
           autoComplete="off"
+          form={form}
         >
           <BasicInfoForm profileImageUrl={userDetail.profileImage} />
 
@@ -98,21 +111,17 @@ const PersonalInfoDisplay = ({ userDetail, fetchData }) => {
               <Button
                 type="primary"
                 htmlType="submit"
-                onClick={() => {
-                  setEditClicked(false);
-                }}
                 style={{ margin: "20px" }}
               >
                 Save
               </Button>
+
               <Button
                 type="primary"
-                onClick={() => {
-                  setEditClicked(false);
-                }}
+                onClick={onCancel}
                 style={{ margin: "20px" }}
               >
-                Cancle
+                Cancel
               </Button>
             </>
           )}
