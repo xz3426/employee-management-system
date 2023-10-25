@@ -54,11 +54,14 @@ const NavBar_ = () => {
           {authorization === "hr" && (
             <div style={{ display: "flex", padding: "20px" }}>
               <Space direction="horizontal" size={15}>
-                <Link>
-                  <h2>HR1 </h2>
+                <Link to="/allEmployeeProfiles">
+                  <h2>Employee Profile </h2>
                 </Link>
-                <Link>
-                  <h2>HR2 </h2>
+                <Link to="/hr">
+                  <h2>Hiring Mangement </h2>
+                </Link>
+                <Link to="/visa-status">
+                  <h2>Visa Status</h2>
                 </Link>
               </Space>
             </div>
