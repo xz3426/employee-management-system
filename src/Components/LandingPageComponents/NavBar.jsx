@@ -2,7 +2,16 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { UserOutlined, ShoppingCartOutlined } from "@ant-design/icons";
-import { Layout, Input, Badge, Avatar, Button, Popover, List } from "antd";
+import {
+  Layout,
+  Input,
+  Badge,
+  Avatar,
+  Button,
+  Popover,
+  List,
+  Space,
+} from "antd";
 import { logOutUser } from "app/userSlice";
 import useAuth from "hooks/useAuth";
 const { Header } = Layout;
@@ -44,23 +53,27 @@ const NavBar_ = () => {
         >
           {authorization === "hr" && (
             <div style={{ display: "flex", padding: "20px" }}>
-              <Link>
-                <h2>HR1 </h2>
-              </Link>
-              <Link>
-                <h2>HR2 </h2>
-              </Link>
+              <Space direction="horizontal" size={15}>
+                <Link>
+                  <h2>HR1 </h2>
+                </Link>
+                <Link>
+                  <h2>HR2 </h2>
+                </Link>
+              </Space>
             </div>
           )}
 
           {authorization === "regular" && (
             <div style={{ display: "flex", padding: "20px" }}>
-              <Link to="/employee/personalInfo">
-                <h2> My Information </h2>
-              </Link>
-              <Link to="/employee/visaStatus">
-                <h2> Visa Status </h2>
-              </Link>
+              <Space direction="horizontal" size={15}>
+                <Link to="/employee/personalInfo">
+                  <h2> My Information </h2>
+                </Link>
+                <Link to="/employee/visaStatus">
+                  <h2> Visa Status </h2>
+                </Link>
+              </Space>
             </div>
           )}
 
