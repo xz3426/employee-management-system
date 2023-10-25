@@ -7,7 +7,7 @@ router.post("/generateUser", generateUser);
 router.get("/fetchTokens", fetchTokens);
 router.post("/deleteToken", deleteToken);
 router.get("/fetchUsers", fetchUsers);
-router.get("/users", fetchAllUsers);
-router.get("search/:key", searchUsers);
+router.get("/fetchAllUsers", fetchAllUsers);
+router.get("/search/:key", searchUsers);
 
 module.exports = router;
