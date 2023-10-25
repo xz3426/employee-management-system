@@ -138,7 +138,12 @@ const fetchUsers = async (req, res, next) => {
 
 const fetchAllUsers = async (req, res, next) => {
   try {
-    const users = await db.User.find({authorization: "regular"});
+    const users = await db.User.find({ authorization: "regular", userDetail: { $ne: null } }, {
+      "optRecipt.file.content": 0,
+      "optEAD.file.content": 0,
+      "I983.file.content": 0,
+      "I20.file.content": 0,
+    });
     if (!users) {
       return res.status(404).send({ message: "user not found" });
     }
