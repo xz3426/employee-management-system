@@ -31,9 +31,9 @@ const signup = async (req, res, next) => {
         return res.status(400).json({ error });
       }
       // db.Token.deleteOne({user:email} );
-      const filter = {user: email};
+      const filter = { user: email };
       const update = {
-        $set: {registration: "Registered"}
+        $set: { registration: "Registered" },
       };
       await db.Token.updateOne(filter, update);
     }
@@ -176,6 +176,9 @@ const submitOnboardingForm = async (req, res, next) => {
       });
     }
     user.USID = USID;
+    if (USID === "yes") {
+      user.currentStep = "done";
+    }
     user.userDetail = req.body;
     user.onBoardingApplication.status = "pending";
     await user.save();
@@ -226,26 +229,22 @@ const getUserById = async (req, res, next) => {
   }
 };
 
-
-
 const getUserApplicationStatus = async (req, res, next) => {
   try {
     const { userId, applicationName } = req.params;
-    
+
     const user = await db.User.findById(userId);
     if (!user) {
-      return res.status(404).send({ message: "user not found" ,ok : false});
+      return res.status(404).send({ message: "user not found", ok: false });
     }
-    if (parseInt(process.versions.node.split('.')[0]) >= 18) {
+    if (parseInt(process.versions.node.split(".")[0]) >= 18) {
       // Code specific to Node.js 18
-      var status = user[applicationName].status; 
+      var status = user[applicationName].status;
     } else {
       // Code for Node.js 16 and earlier
-      var status = JSON.parse(user[applicationName]).status; 
+      var status = JSON.parse(user[applicationName]).status;
     }
-    return res
-      .status(200)
-      .json({ ApplicationStatus: status });
+    return res.status(200).json({ ApplicationStatus: status });
   } catch (err) {
     return res.status(400).json({
       message: err.message,
