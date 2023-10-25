@@ -47,12 +47,21 @@ export const getUserDetailById = async (userId) => {
   });
 };
 
+
+export const getUserById = async (id) => {
+  return await apiCall({
+    url: `/api/auth/user/${id}`,
+    method: "GET",
+  });
+};
+
 export const getUserApplicationStatus = async (userId, applicationName) => {
   return await apiCall({
     url: `/api/auth/${userId}/${applicationName}`,
     method: "GET",
   });
 };
+
 
 export const fetchAllUsers = async () => {
   return await apiCall({

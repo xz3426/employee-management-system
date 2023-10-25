@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { signIn, signUp, fetchAllUsers, searchUsers } from "services/auth";
+import { signIn, signUp } from "services/auth";
+import { searchUsers, fetchAllUsers } from "services/hrwork";
 import { addError, removeError } from "./errorSlice";
 
 export const initialState = {
@@ -31,24 +32,6 @@ export const signUpUser = createAsyncThunk(
       const user = await signUp(data);
       thunkAPI.dispatch(removeError());
       return user;
-    } catch (error) {
-      const { message } = error;
-      thunkAPI.dispatch(addError(message));
-      return thunkAPI.rejectWithValue(message);
-    }
-  }
-);
-
-export const searchEmployeesAction = createAsyncThunk(
-  "currentUser/searchEmployeesAction",
-  async (key, thunkAPI) => {
-    try {
-      if (key === "") {
-        return await fetchAllUsers();
-      }
-      const users = await searchUsers(key);
-      thunkAPI.dispatch(removeError());
-      return users;
     } catch (error) {
       const { message } = error;
       thunkAPI.dispatch(addError(message));

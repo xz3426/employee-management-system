@@ -205,6 +205,24 @@ const getUserDetailById = async (req, res, next) => {
   }
 };
 
+const getUserById = async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    const user = await db.User.findById(userId);
+    if (!user) {
+      return res.status(404).send({ message: "user not found" });
+    }
+    return res.status(200).json(user);
+  } catch (err) {
+    return res.status(400).json({
+      message: err.message,
+      ok: false,
+    });
+  }
+};
+
+
+
 const getUserApplicationStatus = async (req, res, next) => {
   try {
     const { userId, applicationName } = req.params;
@@ -238,5 +256,6 @@ module.exports = {
   updatePwd,
   submitOnboardingForm,
   getUserDetailById,
+  getUserById,
   getUserApplicationStatus,
 };

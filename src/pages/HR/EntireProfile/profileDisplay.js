@@ -38,7 +38,7 @@ const container = {
 
 
 
-const EntireProfile = () => {
+const Profile = () => {
   const { id } = useParams();
 
   const [isLoading, setIsLoading] = useState(true);
@@ -55,63 +55,63 @@ const EntireProfile = () => {
         {
           key: '1',
           label: 'Email',
-          children: response.userDetail.email,
+          children: user.userDetail.email,
         },
         {
           key: '2',
           label: 'Cell Phone Number',
-          children: response.userDetail.cellPhone,
+          children: user.userDetail.cellPhone,
         },
         {
           key: '3',
           label: 'Work Phone Number',
-          children: response.userDetail.workPhone,
+          children: user.userDetail.workPhone,
         },
         {
           key: '4',
           label: 'Current Address',
-          children: response.userDetail.address,
+          children: user.userDetail.address,
           span: 3,
         },
         {
           key: '5',
           label: 'Gender',
-          children: response.userDetail.gender,
+          children: user.userDetail.gender,
           span: 1,
         },
         {
           key: '6',
           label: 'Date of Birth',
-          children: response.userDetail.birth,
+          children: user.userDetail.birth,
           span: 2,
         },
         {
           key: '7',
           label: 'Visa Title',
-          children: response.userDetail.workTitle,
+          children: user.userDetail.workTitle,
         },
         {
           key: '8',
           label: 'Start Date',
-          children: response.userDetail.startDate,
+          children: user.userDetail.startDate,
         },
         {
             key: '10',
             label: 'End Date',
-            children: response.userDetail.endDate,
+            children: user.userDetail.endDate,
           },
         {
           key: '10',
           label: 'Emergency Contact',
           children: (
             <>
-              Name: {response.userDetail.emergencyFirstName + " " + response.userDetail.emergencyMidName + " " + response.userDetail.emergencyLastName}
+              Name: {user.userDetail.emergencyFirstName + " " + user.userDetail.emergencyMidName + " " + user.userDetail.emergencyLastName}
               <br />
-              Phone Number: {response.userDetail.emergencyPhone}
+              Phone Number: {user.userDetail.emergencyPhone}
               <br />
-              Email: {response.userDetail.emergencyEmail}
+              Email: {user.userDetail.emergencyEmail}
               <br />
-              Relationship: {response.userDetail.emergencyRelationship}
+              Relationship: {user.userDetail.emergencyRelationship}
               <br />
             </>
           ),
@@ -133,8 +133,6 @@ const EntireProfile = () => {
       ];
 
       setInfo(items);
-
-      setIsLoading(false);
     }
     fetchData();
   }, []);
@@ -161,4 +159,4 @@ const EntireProfile = () => {
   );
 };
 
-export default EntireProfile;
+export default Profile;
