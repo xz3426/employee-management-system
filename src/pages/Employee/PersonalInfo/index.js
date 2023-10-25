@@ -15,6 +15,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getUserDetailById } from "services/auth";
 import moment from "moment";
 import PersonalInfoDisplay from "./PersonalInfoDisplay";
+import { getUserFilesInfo } from "services/files";
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -38,10 +39,12 @@ const container = {
 const PersonalInfo = () => {
   const { userID } = useAuth();
   const [userDetail, setUserDetail] = useState();
+  const [userFiles, setFiles] = useState({});
   const navigate = useNavigate();
 
   async function fetchData() {
     let userDetail = await getUserDetailById(userID);
+    let files = await getUserFilesInfo(userID);
     const birth = moment(userDetail.birth);
     const startDate = moment(userDetail.startDate);
     const endDate = moment(userDetail.endDate);
@@ -51,6 +54,7 @@ const PersonalInfo = () => {
       startDate: startDate,
       endDate: endDate,
     });
+    setFiles(files);
   }
 
   useEffect(() => {
@@ -59,7 +63,10 @@ const PersonalInfo = () => {
   return (
     <Content>
       {userDetail && (
-        <PersonalInfoDisplay userDetail={userDetail} fetchData={fetchData} />
+        <PersonalInfoDisplay
+          userDetail={userDetail}
+          uploadedFilesInfo={userFiles}
+        />
       )}
     </Content>
   );

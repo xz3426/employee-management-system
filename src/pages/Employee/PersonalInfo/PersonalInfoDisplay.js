@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "hooks/useAuth";
-import { Button, Select, Form, Layout, message, Modal } from "antd";
+import { Button, Select, Form, Layout, message, Modal, Space } from "antd";
 
 import { submitOnboardingForm } from "services/auth";
 
 import EmergencyForm from "Components/OnboardingForm/emergency";
 import BasicInfoForm from "Components/OnboardingForm/basicInfo";
 import OPTForm from "Components/OnboardingForm/optForm";
+import { BACKEND_URI } from "consts";
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -27,7 +28,7 @@ const container = {
   fontFamily: "Arial, sans-serif",
 };
 
-const PersonalInfoDisplay = ({ userDetail, fetchData }) => {
+const PersonalInfoDisplay = ({ userDetail, uploadedFilesInfo }) => {
   const [editClicked, setEditClicked] = useState(false);
   const [isAmerican, setIsAmerican] = useState(true);
   const [form] = Form.useForm();
@@ -89,7 +90,6 @@ const PersonalInfoDisplay = ({ userDetail, fetchData }) => {
           form={form}
         >
           <BasicInfoForm profileImageUrl={userDetail.profileImage} />
-
           <Form.Item
             name="USID"
             label="Permanent resident of citizen of the U.S.?"
@@ -100,12 +100,29 @@ const PersonalInfoDisplay = ({ userDetail, fetchData }) => {
               <Option value="no">no</Option>
             </Select>
           </Form.Item>
-
           {!isAmerican && <OPTForm />}
           <br />
           <EmergencyForm />
           <br />
-
+          All documents you have uploaded:
+          {uploadedFilesInfo.optRecipt && (
+            <a
+              href={`${BACKEND_URI}/files/${userID}/optRecipt`}
+              target="_blank"
+            >
+              {uploadedFilesInfo.optRecipt.file.originalName}
+            </a>
+          )}
+          {uploadedFilesInfo.optEAD && (
+            <a>{uploadedFilesInfo.optEAD.file.originalName}</a>
+          )}
+          {uploadedFilesInfo.I983 && (
+            <a>{uploadedFilesInfo.I983.file.originalName}</a>
+          )}
+          {uploadedFilesInfo.I20 && (
+            <a>{uploadedFilesInfo.I20.file.originalName}</a>
+          )}
+          <br />
           {editClicked && (
             <>
               <Button
@@ -125,7 +142,7 @@ const PersonalInfoDisplay = ({ userDetail, fetchData }) => {
               </Button>
             </>
           )}
-
+          {/* File display */}
           {!editClicked && (
             <Button
               type="primary"
