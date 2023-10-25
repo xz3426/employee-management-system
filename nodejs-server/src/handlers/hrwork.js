@@ -178,19 +178,16 @@ const manageDoc = async (req, res, next) => {
     if (!user){
       return res.status(400).json({message:"User Not Found", ok: false});
     }
-    if (user.userDetail.USID === "no"){
-      if (user[fileType]) {
-        // Update the status and feedback based on the 'action' value
-        user[fileType].status = action;
 
-        user[fileType].feedback = feedback;
-      }
-    }else{
-      user.onBoardingApplication.status = action;
+    if (user[fileType]) {
+      // Update the status and feedback based on the 'action' value
+      user[fileType].status = action;
+
+      user[fileType].feedback = feedback;
     }
-    
+  
     // if [fileType === "optRecipt"]
-    // await user.save();
+    await user.save();
 
     return res.status(200).json({ message: "File Updated Successfully", ok: true });
   } catch (error) {

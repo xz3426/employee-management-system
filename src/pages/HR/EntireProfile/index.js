@@ -190,7 +190,7 @@ const EntireProfile = () => {
           <div style={container}>
             <h2>Employee Information Detail</h2>
             <Space size="large">
-              <Avatar size="large" src={user.userDetail.profileImage}></Avatar>
+              <Avatar size="large" src={user.profileImageUrl}></Avatar>
               <h3>
                 {" "}
                 {user.userDetail.firstName + " " + user.userDetail.lastName}

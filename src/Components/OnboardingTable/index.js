@@ -2,9 +2,24 @@ import React, { useState, useEffect } from "react";
 import { Table, Button, Modal, Input } from "antd";
 // import "antd/dist/antd.css"; // Import Ant Design CSS
 import { fetchUsers, manageDoc } from "services/hrwork";
-
+import { Layout, Avatar, Space, Descriptions } from "antd";
 import { BACKEND_URI } from "consts";
+const container = {
+  backgroundColor: "white",
+  display: "flex",
+  flexDirection: "column",
+  marginLeft: "200px",
+  marginRight: "200px",
+  padding: "30px 100px",
+  fontFamily: "Arial, sans-serif",
+};
 
+const { Content } = Layout;
+const title = {
+  textAlign: "center",
+  fontFamily: "Arial, sans-serif",
+  // marginLeft: "-800px",
+};
 const OnboardingTable = () => {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -21,18 +36,109 @@ const OnboardingTable = () => {
   const detailExtractor = (user) => {
     const dob = new Date(user.userDetail.birth);
     const formattedDob = `${dob.getMonth() + 1}/${dob.getDate()}/${dob.getFullYear}`;
+    const items = [
+      {
+        key: '1',
+        label: 'Email',
+        children: user.userDetail.email,
+      },
+      {
+        key: '2',
+        label: 'Cell Phone Number',
+        children: user.userDetail.cellPhone,
+      },
+      {
+        key: '3',
+        label: 'Work Phone Number',
+        children: user.userDetail.workPhone,
+      },
+      {
+        key: '4',
+        label: 'Current Address',
+        children: user.userDetail.address,
+        span: 3,
+      },
+      {
+        key: '5',
+        label: 'Gender',
+        children: user.userDetail.gender,
+        span: 1,
+      },
+      {
+        key: '6',
+        label: 'Date of Birth',
+        children: user.userDetail.birth,
+        span: 2,
+      },
+      {
+        key: '7',
+        label: 'Visa Title',
+        children: user.userDetail.workTitle,
+      },
+      {
+        key: '8',
+        label: 'Start Date',
+        children: user.userDetail.startDate,
+      },
+      {
+          key: '10',
+          label: 'End Date',
+          children: user.userDetail.endDate,
+        },
+      {
+        key: '10',
+        label: 'Emergency Contact',
+        children: (
+          <>
+            Name: {user.userDetail.emergencyFirstName + " " + user.userDetail.emergencyMidName + " " + user.userDetail.emergencyLastName}
+            <br />
+            Phone Number: {user.userDetail.emergencyPhone}
+            <br />
+            Email: {user.userDetail.emergencyEmail}
+            <br />
+            Relationship: {user.userDetail.emergencyRelationship}
+            <br />
+          </>
+        ),
+        span: 3,
+      },
+    ];
     return (
-      <div>
-        <p>Full Name: {user.userDetail.firstName + " " + (user.userDetail.middleName ? user.userDetail.middleName : "") + " " + user.userDetail.lastName}</p>
-        <p>Email: {user.email}</p>
-        <p>Cell Phone: {user.userDetail.cellPhone}</p>
-        <p>Work Phone: {user.userDetail.workPhone}</p>
-        <p>Address: {user.userDetail.address}</p>
-        <p>Gender: {user.userDetail.gender}</p>
-        <p>Date of Birth: {formattedDob}</p>
-        <p>Status: {user.onBoardingApplication.status}</p>
-        <p>US residents: {user.userDetail.USID}</p>
-        {user.userDetail.USID === "no" ? (
+  
+        <Content>
+      <div style={{ backgroundColor: "#f5f3f38f" }}>
+        <h1 style={title}>Employee Profiles</h1>
+        
+          <div >
+            <h2>Employee Information Detail</h2>
+            <Space size="large">
+              <Avatar size="large" src={user.profileImageUrl}></Avatar>
+              <h3>
+                {" "}
+                {user.userDetail.firstName + " " + user.userDetail.lastName}
+              </h3>
+            </Space>
+            <br />
+
+            <Descriptions
+              size="small"
+              bordered
+              layout="vertical"
+              items={items}
+            />
+          </div>
+    
+         <Input
+              placeholder="Enter feedback"
+              value={feedback}
+              onChange={(e) => setFeedback(e.target.value)}
+            />
+            <Button onClick={() => handleAction("Approved",user._id)}>Approve</Button>
+            <Button onClick={() => handleAction("Rejected",user._id)}>Reject</Button>
+      </div>
+      
+    </Content>
+        /* {user.userDetail.USID === "no" ? (
           <div>
             <p>
               OPT Receipt:{' '}
@@ -45,26 +151,23 @@ const OnboardingTable = () => {
             </p>
 
           </div>
-        ) : null}
-            <Input
-              placeholder="Enter feedback"
-              value={feedback}
-              onChange={(e) => setFeedback(e.target.value)}
-            />
-            <Button onClick={() => handleAction("approve",user._id)}>Approve</Button>
-            <Button onClick={() => handleAction("reject",user._id)}>Reject</Button>
-        {/* Add more user details here */}
-      </div>
+        ) : null} */
+           
+  
+    
     );
   }
 
-  const handleAction = (selectedAction, userId) => {
+  const handleAction = async (selectedAction, userId) => {
     // setAction(selectedAction);
     const data = {action: selectedAction,
                   userId:userId,
                   feedback: feedback,
-                  fileType: "optRecipt"};
-    manageDoc(data);
+                  fileType: "onBoardingApplication"};
+    await manageDoc(data);
+    setSelectedUser(null);
+    setFeedback(""); // Reset feedback
+    setAction(""); // Reset action
     
 
     // You can perform the action (approve or reject) with the feedback here.
@@ -116,10 +219,11 @@ const OnboardingTable = () => {
         visible={selectedUser !== null}
         onCancel={handleCloseDetails}
         footer={[
-          <Button key="close" onClick={handleCloseDetails}>
-            Close
-          </Button>
+          // <Button key="close" onClick={handleCloseDetails}>
+          //   Close
+          // </Button>
         ]}
+        width={800}
       >
         {selectedUser !== null && detailExtractor(selectedUser)}
       </Modal>
