@@ -66,7 +66,6 @@ const downloadFileByType = async (req, res, next) => {
     if (!user) {
       return res.status(404).send("User not found");
     }
-
     const file = user[fileType].file;
     // Convert the Base64 encoded content back to a buffer
     const fileBuffer = Buffer.from(file.content, "base64");
@@ -75,7 +74,8 @@ const downloadFileByType = async (req, res, next) => {
     res.contentType(file.mimetype);
     res.send(fileBuffer);
   } catch (error) {
-    res.status(500).send("Server Error: " + error.message);
+    console.log(123123);
+    res.status(501).send("Server Error: " + error.message);
   }
 };
 
