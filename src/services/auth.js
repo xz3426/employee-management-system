@@ -40,13 +40,13 @@ export const submitOnboardingForm = async (data) => {
   });
 };
 
-export const getUserDetailById = async (data) => {
+export const getUserDetailById = async (userId) => {
   return await apiCall({
-    url: `/api/auth/userDetail/${data.id}`,
+    url: `/api/auth/userDetail/${userId}`,
     method: "GET",
-    data,
   });
 };
+
 
 export const getUserById = async (id) => {
   return await apiCall({
@@ -63,3 +63,16 @@ export const getUserApplicationStatus = async (userId, applicationName) => {
 };
 
 
+export const fetchAllUsers = async () => {
+  return await apiCall({
+    url: `/api/auth/users`,
+    method: "GET",
+  });
+};
+
+export const searchUsers = async (key) => {
+  return await apiCall({
+    url: `/api/auth/search/${key}`,
+    method: "GET",
+  });
+};

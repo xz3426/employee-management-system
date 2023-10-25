@@ -173,11 +173,11 @@ const fields = {
   },
 };
 
-const BasicInfoForm = ({ user }) => {
+const BasicInfoForm = ({ userDetail }) => {
   const [profileImage, setProfileImage] = useState();
   useEffect(() => {
-    if (user?.imgLink !== undefined) {
-      setProfileImage(user.imgLink);
+    if (userDetail?.imgLink !== undefined) {
+      setProfileImage(userDetail.imgLink);
     }
   }, []);
 

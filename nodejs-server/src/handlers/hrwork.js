@@ -121,7 +121,12 @@ const deleteToken = async (req, res, next) => {
 
 const fetchUsers = async (req, res, next) => {
   try {
-    const users = await db.User.find({authorization: "regular"});
+    const users = await db.User.find({authorization: "regular"}, {
+      "optRecipt.file.content": 0,
+      "optEAD.file.content": 0,
+      "I983.file.content": 0,
+      "I20.file.content": 0,
+    });
 
     return res.status(200).json(users);
   }catch (error){
@@ -140,7 +145,7 @@ const fetchAllUsers = async (req, res, next) => {
     return res.status(200).json(users);
   } catch (err) {
     return res.status(400).json({
-      message: err.message,
+      message: err.message,  
       ok: false,
     });
   }

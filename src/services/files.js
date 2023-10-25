@@ -13,3 +13,10 @@ export const getUserFilesInfo = async (userId) => {
     method: "GET",
   });
 };
+
+export const downloadFileByType = async (userId,fileType) => {
+  return await apiCall({
+    url: `/api/files/${userId}/${fileType}`,
+    method: "GET",
+  });
+};
