@@ -70,9 +70,3 @@ export const fetchAllUsers = async () => {
   });
 };
 
-export const searchUsers = async (key) => {
-  return await apiCall({
-    url: `/api/auth/search/${key}`,
-    method: "GET",
-  });
-};

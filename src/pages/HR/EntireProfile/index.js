@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 import { Layout, Avatar, Space, Descriptions } from "antd";
 import { useParams } from "react-router-dom";
 import { getUserById } from "services/auth";
+// import { BACKEND_URI } from "@/consts";
 
 const { Content } = Layout;
-
 
 const title = {
   textAlign: "center",
@@ -36,8 +36,6 @@ const container = {
 //   address: "123",
 // };
 
-
-
 const EntireProfile = () => {
   const { id } = useParams();
 
@@ -51,61 +49,75 @@ const EntireProfile = () => {
       console.log(response);
       setUser(response);
 
+      function formatDate(date) {
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1; // Month is 0-indexed, so add 1
+        const day = date.getDate();
+        return `${year}-${month.toString().padStart(2, "0")}-${day
+          .toString()
+          .padStart(2, "0")}`;
+      }
+
       const items = [
         {
-          key: '1',
-          label: 'Email',
+          key: "1",
+          label: "Email",
           children: response.userDetail.email,
         },
         {
-          key: '2',
-          label: 'Cell Phone Number',
+          key: "2",
+          label: "Cell Phone Number",
           children: response.userDetail.cellPhone,
         },
         {
-          key: '3',
-          label: 'Work Phone Number',
+          key: "3",
+          label: "Work Phone Number",
           children: response.userDetail.workPhone,
         },
         {
-          key: '4',
-          label: 'Current Address',
+          key: "4",
+          label: "Current Address",
           children: response.userDetail.address,
           span: 3,
         },
         {
-          key: '5',
-          label: 'Gender',
+          key: "5",
+          label: "Gender",
           children: response.userDetail.gender,
           span: 1,
         },
         {
-          key: '6',
-          label: 'Date of Birth',
-          children: response.userDetail.birth,
+          key: "6",
+          label: "Date of Birth",
+          children: formatDate(new Date(response.userDetail.birth)),
           span: 2,
         },
         {
-          key: '7',
-          label: 'Visa Title',
+          key: "7",
+          label: "Visa Title",
           children: response.userDetail.workTitle,
         },
         {
-          key: '8',
-          label: 'Start Date',
-          children: response.userDetail.startDate,
+          key: "8",
+          label: "Start Date",
+          children: formatDate(new Date(response.userDetail.startDate)),
         },
         {
-            key: '10',
-            label: 'End Date',
-            children: response.userDetail.endDate,
-          },
+          key: "10",
+          label: "End Date",
+          children: formatDate(new Date(response.userDetail.endDate)),
+        },
         {
-          key: '10',
-          label: 'Emergency Contact',
+          key: "10",
+          label: "Emergency Contact",
           children: (
             <>
-              Name: {response.userDetail.emergencyFirstName + " " + response.userDetail.emergencyMidName + " " + response.userDetail.emergencyLastName}
+              Name:{" "}
+              {response.userDetail.emergencyFirstName +
+                " " +
+                response.userDetail.emergencyMidName +
+                " " +
+                response.userDetail.emergencyLastName}
               <br />
               Phone Number: {response.userDetail.emergencyPhone}
               <br />
@@ -118,18 +130,49 @@ const EntireProfile = () => {
           span: 3,
         },
         {
-            key: '11',
-            label: 'Documents Uploaded',
-            children: (
-              <>
-                doc1: 
-                <br />
-                doc2: 
-                <br />
-              </>
-            ),
-            span: 3,
-          },
+          key: "11",
+          label: "Documents Uploaded",
+          children: response.userDetail.workTitle === "F1" && (
+            <>
+              {response.optRecipt.status === "never" ? null : (
+                <a
+                  href={`http://localhost:8080/api/files/${response._id}/optRecipt`}
+                  target="_blank"
+                >
+                  OPT Recipt: {response.optRecipt.file.originalName}
+                </a>
+              )}
+              <br />
+              {response.optEAD.status === "never" ? null : (
+                <a
+                  href={`http://localhost:8080/api/files/${response._id}/optEAD`}
+                  target="_blank"
+                >
+                  OPT EAD: {response.optEAD?.file.originalName}
+                </a>
+              )}
+              <br />
+              {response.I983.status === "never" ? null : (
+                <a
+                  href={`http://localhost:8080/api/files/${response._id}/I983`}
+                  target="_blank"
+                >
+                  I983: {response.I983.file.originalName}
+                </a>
+              )}
+              <br />
+              {response.I20.status === "never" ? null : (
+                <a
+                  href={`http://localhost:8080/api/files/${response._id}/I20`}
+                  target="_blank"
+                >
+                  I20: {response.I20.file.originalName}
+                </a>
+              )}
+            </>
+          ),
+          span: 3,
+        },
       ];
 
       setInfo(items);
@@ -148,14 +191,21 @@ const EntireProfile = () => {
             <h2>Employee Information Detail</h2>
             <Space size="large">
               <Avatar size="large" src={user.userDetail.profileImage}></Avatar>
-              <h3> {user.userDetail.firstName + " " + user.userDetail.lastName}</h3>
+              <h3>
+                {" "}
+                {user.userDetail.firstName + " " + user.userDetail.lastName}
+              </h3>
             </Space>
-            <br/>
+            <br />
 
-            <Descriptions  size="small" bordered layout="vertical" items={info} />
+            <Descriptions
+              size="small"
+              bordered
+              layout="vertical"
+              items={info}
+            />
           </div>
         )}
-        
       </div>
     </Content>
   );
