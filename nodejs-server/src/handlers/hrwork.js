@@ -53,7 +53,7 @@ const sendToken = async (req, res, next) => {
           $set: {token: token, createTime: Date.now(), registration: "Token Sent"}
         };
         await db.Token.updateOne(filter, update);
-        let tokendb = await db.Token.findOne({email:user})
+        let tokendb = await db.Token.findOne({user:user});
         // let tokendb = await db.Token.create(tokenRecord)
         // if (!tokendb){
         //     const error = {
@@ -137,11 +137,13 @@ const fetchUsers = async (req, res, next) => {
 }
 
 
-
 const fetchAllUsers = async (req, res, next) => {
   try {
-    const users = await db.User.find({});
-    return res.status(200).json(products);
+    const users = await db.User.find({authorization: "regular"});
+    if (!users) {
+      return res.status(404).send({ message: "user not found" });
+    }
+    return res.status(200).json(users);
   } catch (err) {
     return res.status(400).json({
       message: err.message,
@@ -150,11 +152,12 @@ const fetchAllUsers = async (req, res, next) => {
   }
 };
 
+
 const searchUsers = async (req, res, next) => {
   try {
     console.log(req.params.key);
     let regex = new RegExp(`${req.params.key}`, "i");
-    const searchResult = await db.User.find({ xxxxxxxxxxx: regex });
+    const searchResult = await db.User.find({ "userDetail.firstName": regex });
     return res.status(200).json(searchResult);
   } catch (err) {
     console.error(err);

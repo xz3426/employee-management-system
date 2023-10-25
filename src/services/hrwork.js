@@ -40,3 +40,20 @@ export const fetchUsers = async () => {
     method: "GET"
   });
 }
+export const fetchAllUsers = async () => {
+  return await apiCall({
+    url: "/api/hrwork/fetchAllUsers",
+    method: "GET"
+  });
+}
+
+export const searchUsers = async (key) => {
+  if (key === ""){
+    return await fetchAllUsers();
+  }
+
+  return await apiCall({
+    url: `/api/hrwork/search/${key}`,
+    method: "GET",
+  });
+};

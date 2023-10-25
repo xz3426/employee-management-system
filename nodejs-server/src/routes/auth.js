@@ -7,6 +7,7 @@ const {
   updatePwd,
   submitOnboardingForm,
   getUserDetailById,
+  getUserById,
   getUserApplicationStatus,
 } = require("../handlers/auth");
 
@@ -16,5 +17,6 @@ router.post("/changePwd", changePwd);
 router.post("/updatePwd", updatePwd);
 router.post("/submitOnboardingForm", submitOnboardingForm);
 router.get("/userDetail/:userId", getUserDetailById);
+router.get("/user/:userId", getUserById);
 router.get("/:userId/:applicationName", getUserApplicationStatus);
 module.exports = router;
