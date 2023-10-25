@@ -208,7 +208,12 @@ const getUserDetailById = async (req, res, next) => {
 const getUserById = async (req, res, next) => {
   try {
     const userId = req.params.userId;
-    const user = await db.User.findById(userId);
+    const user = await db.User.findById(userId, {
+      "optRecipt.file.content": 0,
+      "optEAD.file.content": 0,
+      "I983.file.content": 0,
+      "I20.file.content": 0,
+    });
     if (!user) {
       return res.status(404).send({ message: "user not found" });
     }
