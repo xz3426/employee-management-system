@@ -48,6 +48,13 @@ export const getUserDetailById = async (data) => {
   });
 };
 
+export const getUserById = async (id) => {
+  return await apiCall({
+    url: `/api/auth/user/${id}`,
+    method: "GET",
+  });
+};
+
 export const getUserApplicationStatus = async (userId, applicationName) => {
   return await apiCall({
     url: `/api/auth/${userId}/${applicationName}`,
@@ -55,16 +62,4 @@ export const getUserApplicationStatus = async (userId, applicationName) => {
   });
 };
 
-export const fetchAllUsers = async () => {
-  return await apiCall({
-    url: `/api/auth/users`,
-    method: "GET",
-  });
-};
 
-export const searchUsers = async (key) => {
-  return await apiCall({
-    url: `/api/auth/search/${key}`,
-    method: "GET",
-  });
-};

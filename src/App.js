@@ -48,8 +48,7 @@ function App() {
             <Route path="employee/personalInfo" element={<PersonalInfo />} />
             <Route path="onboarding" element={<OnboardingForm />} />
             <Route path="allEmployeeProfiles" element={<AllEmployeeProfiles />} />
-
-            <Route path="employee/profileDetail" element={<EntireProfile />} />
+            <Route path="allEmployeeProfiles/profileDetail/:id" element={<EntireProfile />} />
 
             
 
