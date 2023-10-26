@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import BreadCrumbs from "Components/BreadCrumbs";
 import TokenTable from "Components/TokenTable";
 import OnboardingTable from "Components/OnboardingTable"; // Import the OnboardingTable component
+// import { HR } from "@/consts";
 
-const HR = () => {
+const HiringManagement = () => {
   const [currentPage, setCurrentPage] = useState("Registration Token");
   const handleBreadcrumbClick = (newPage) => {
     setCurrentPage(newPage);
@@ -27,4 +28,4 @@ const HR = () => {
   );
 }
 
-export default HR;
+export default HiringManagement;

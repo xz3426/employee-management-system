@@ -140,6 +140,11 @@ const TokenTable = () => {
             key: "user",
           },
           {
+            title: "token",
+            dataIndex:"token",
+            key: "token"
+          },
+          {
             title: "Status",
             dataIndex: "registration",
             key: "registration",

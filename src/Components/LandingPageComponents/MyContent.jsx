@@ -1,4 +1,4 @@
-import HR from "pages/HR";
+import HiringManagement from "pages/HR/HiringManagement";
 import { Navigate } from "react-router-dom";
 import { Layout } from "antd";
 import React, { useMemo } from "react";
@@ -22,7 +22,7 @@ const MyContent_ = () => {
         backgroundColor: "lightgrey",
       }}
     >
-      {authorization === "hr" ? <HR /> : <Employee />}
+      {authorization === "hr" ? <HiringManagement /> : <Employee />}
     </Content>
   );
 };
