@@ -104,24 +104,26 @@ const PersonalInfoDisplay = ({ userDetail, uploadedFilesInfo }) => {
           <br />
           <EmergencyForm />
           <br />
-          All documents you have uploaded:
-          {uploadedFilesInfo.optRecipt && (
-            <a
-              href={`${BACKEND_URI}/files/${userID}/optRecipt`}
-              target="_blank"
-            >
-              {uploadedFilesInfo.optRecipt.file.originalName}
-            </a>
-          )}
-          {uploadedFilesInfo.optEAD && (
-            <a>{uploadedFilesInfo.optEAD.file.originalName}</a>
-          )}
-          {uploadedFilesInfo.I983 && (
-            <a>{uploadedFilesInfo.I983.file.originalName}</a>
-          )}
-          {uploadedFilesInfo.I20 && (
-            <a>{uploadedFilesInfo.I20.file.originalName}</a>
-          )}
+          <Space direction="vertical">
+            All documents you have uploaded:
+            {uploadedFilesInfo.optRecipt && (
+              <a
+                href={`${BACKEND_URI}/files/${userID}/optRecipt`}
+                target="_blank"
+              >
+                {uploadedFilesInfo.optRecipt.file.originalName}
+              </a>
+            )}
+            {uploadedFilesInfo.optEAD && (
+              <a>{uploadedFilesInfo.optEAD.file.originalName}</a>
+            )}
+            {uploadedFilesInfo.I983 && (
+              <a>{uploadedFilesInfo.I983.file.originalName}</a>
+            )}
+            {uploadedFilesInfo.I20 && (
+              <a>{uploadedFilesInfo.I20.file.originalName}</a>
+            )}
+          </Space>
           <br />
           {editClicked && (
             <>

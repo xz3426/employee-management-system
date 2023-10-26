@@ -28,7 +28,7 @@ const container = {
 
 const VisaStatus = () => {
   const { id } = useParams();
-  const [visaStatus, setVisaStatus] = useState("OPTEAD");
+  const [visaStatus, setVisaStatus] = useState("I983");
   const [statusOfCurrentStep, setStatusOfCurrentStep] = useState("never");
   const [feedback, setFeedBack] = useState("");
   const [isLoading, setIsLoading] = useState(false);
