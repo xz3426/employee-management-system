@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import useAuth from "hooks/useAuth";
 import { Button, Select, Form, Layout } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
-import { getUserDetailById } from "services/auth";
+import { getUserDetailById, getVisaStatus } from "services/auth";
 import OPTReceipt from "./OPTReceipt";
 import OPTEAD from "./OPTEAD";
 import I983 from "./I983";
@@ -27,7 +27,7 @@ const container = {
 };
 
 const VisaStatus = () => {
-  const { id } = useParams();
+  const { userID } = useAuth();
   const [visaStatus, setVisaStatus] = useState("I983");
   const [statusOfCurrentStep, setStatusOfCurrentStep] = useState("never");
   const [feedback, setFeedBack] = useState("");
@@ -36,15 +36,16 @@ const VisaStatus = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const user = await getUserDetailById(id);
-      setVisaStatus(user.visaStatus);
-      setStatusOfCurrentStep(user.statusOfCurrentStep);
-      setFeedBack(user.feedback);
-      setIsLoading(false);
+      const userStatus = await getVisaStatus(userID);
+      setVisaStatus(userStatus.currentStep);
+      setStatusOfCurrentStep(userStatus.status);
+      setFeedBack(userStatus.feedback);
+      // setIsLoading(false);
     }
-    // fetchData();
+    fetchData();
   }, []);
-
+  console.log(visaStatus);
+  console.log(statusOfCurrentStep);
   const onOPTReceiptClick = () => {
     setStatusOfCurrentStep("never");
     setVisaStatus("OPTEAD");
@@ -66,7 +67,11 @@ const VisaStatus = () => {
       <div style={{ backgroundColor: "#f5f3f38f" }}>
         <h1 style={title}>Visa Status Management</h1>
         <div style={container}>
-          {!isLoading && visaStatus === "OPTReceipt" && (
+          {!isLoading && visaStatus === "onBoardingApplication" && (
+            <h2>Wating for the onBoardingApplication to be completed</h2>
+          )}
+
+          {!isLoading && visaStatus === "optRecipt" && (
             <OPTReceipt
               statusOfCurrentStep={statusOfCurrentStep}
               onOPTReceiptClick={onOPTReceiptClick}
@@ -74,7 +79,7 @@ const VisaStatus = () => {
             />
           )}
 
-          {!isLoading && visaStatus === "OPTEAD" && (
+          {!isLoading && visaStatus === "optEAD" && (
             <OPTEAD
               statusOfCurrentStep={statusOfCurrentStep}
               onOPTEADClick={onOPTEADClick}

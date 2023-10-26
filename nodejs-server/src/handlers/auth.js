@@ -181,6 +181,7 @@ const submitOnboardingForm = async (req, res, next) => {
     }
     user.userDetail = req.body;
     user.onBoardingApplication.status = "pending";
+    user.currentStep = "optRecipt";
     await user.save();
 
     return res
@@ -253,6 +254,32 @@ const getUserApplicationStatus = async (req, res, next) => {
   }
 };
 
+const getVisaStatus = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const user = await db.User.findById(userId, {
+      "optRecipt.file.content": 0,
+      "optEAD.file.content": 0,
+      "I983.file.content": 0,
+      "I20.file.content": 0,
+    });
+    if (!user) {
+      return res.status(404).send({ message: "user not found", ok: false });
+    }
+    const { currentStep } = user;
+    const { status, feedback } = user[currentStep];
+    return res
+      .status(200)
+      .json({ currentStep: currentStep, status: status, feedback: feedback });
+  } catch (err) {
+    console.log("efjwo");
+    return res.status(400).json({
+      message: err.message,
+      ok: false,
+    });
+  }
+};
+
 module.exports = {
   signup,
   signin,
@@ -262,4 +289,5 @@ module.exports = {
   getUserDetailById,
   getUserById,
   getUserApplicationStatus,
+  getVisaStatus,
 };

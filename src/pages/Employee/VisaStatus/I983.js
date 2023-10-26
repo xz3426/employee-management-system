@@ -51,6 +51,7 @@ const I983 = ({ statusOfCurrentStep, onI983Click, feedback }) => {
           <div>
             <h4>Here is the feedback from HR:</h4>
             <h5 style={{ textAlign: "center" }}> {feedback} </h5>
+            <UploadComponent fileType={"I983"} />
           </div>
         )}
       </div>
