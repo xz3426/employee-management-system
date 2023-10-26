@@ -61,12 +61,9 @@ export const getUserApplicationStatus = async (userId, applicationName) => {
   });
 };
 
-
 export const fetchAllUsers = async () => {
   return await apiCall({
     url: `/api/auth/users`,
     method: "GET",
   });
 };
-
-

@@ -89,39 +89,48 @@ const PersonalInfoDisplay = ({ userDetail, uploadedFilesInfo }) => {
           autoComplete="off"
           form={form}
         >
-          <BasicInfoForm profileImageUrl={userDetail.profileImage} />
+          <BasicInfoForm
+            profileImageUrl={userDetail.profileImage}
+            isFormDisabled={!editClicked}
+          />
           <Form.Item
             name="USID"
             label="Permanent resident of citizen of the U.S.?"
             rules={[{ required: true }]}
           >
-            <Select placeholder="Select a option" onChange={onUSIDChange}>
+            <Select
+              placeholder="Select a option"
+              disabled={!editClicked}
+              onChange={onUSIDChange}
+            >
               <Option value="yes">yes</Option>
               <Option value="no">no</Option>
             </Select>
           </Form.Item>
-          {!isAmerican && <OPTForm />}
+          {!isAmerican && <OPTForm isFormDisabled={!editClicked} />}
           <br />
-          <EmergencyForm />
+          <EmergencyForm isFormDisabled={!editClicked} />
           <br />
-          All documents you have uploaded:
-          {uploadedFilesInfo.optRecipt && (
-            <a
-              href={`${BACKEND_URI}/files/${userID}/optRecipt`}
-              target="_blank"
-            >
-              {uploadedFilesInfo.optRecipt.file.originalName}
-            </a>
-          )}
-          {uploadedFilesInfo.optEAD && (
-            <a>{uploadedFilesInfo.optEAD.file.originalName}</a>
-          )}
-          {uploadedFilesInfo.I983 && (
-            <a>{uploadedFilesInfo.I983.file.originalName}</a>
-          )}
-          {uploadedFilesInfo.I20 && (
-            <a>{uploadedFilesInfo.I20.file.originalName}</a>
-          )}
+          <Space direction="vertical">
+            All documents you have uploaded:
+            {uploadedFilesInfo.optRecipt && (
+              <a
+                href={`${BACKEND_URI}/files/${userID}/optRecipt`}
+                target="_blank"
+              >
+                {uploadedFilesInfo.optRecipt.file.originalName}
+              </a>
+            )}
+            {uploadedFilesInfo.optEAD && (
+              <a>{uploadedFilesInfo.optEAD.file.originalName}</a>
+            )}
+            {uploadedFilesInfo.I983 && (
+              <a>{uploadedFilesInfo.I983.file.originalName}</a>
+            )}
+            {uploadedFilesInfo.I20 && (
+              <a>{uploadedFilesInfo.I20.file.originalName}</a>
+            )}
+          </Space>
           <br />
           {editClicked && (
             <>

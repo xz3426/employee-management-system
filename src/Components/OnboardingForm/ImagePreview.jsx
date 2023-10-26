@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Form, Input, Button, Space, Image } from "antd";
 import { FileImageTwoTone } from "@ant-design/icons";
 
-const ImagePreview = ({ profileImage, setProfileImage }) => {
+const ImagePreview = ({ profileImage, setProfileImage, disabled = false }) => {
   function isValidURL(string) {
     try {
       new URL(string);
@@ -31,6 +31,7 @@ const ImagePreview = ({ profileImage, setProfileImage }) => {
             value={profileImage}
             onChange={(e) => setProfileImage(e.target.value)}
             id="myInputImg"
+            disabled={disabled}
           />
         </Space.Compact>
       </Form.Item>

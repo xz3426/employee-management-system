@@ -16,6 +16,7 @@ const postUserFiles = async (req, res, next) => {
     // Convert file contents to Base64
     const encodedFile = fileBuffer.toString("base64");
     // Store the encoded file and related details in MongoDB
+    console.log(fileType);
     user[fileType].file = {
       originalName: req.file.originalname,
       encoding: req.file.encoding,
@@ -61,7 +62,7 @@ const getUserFilesInfo = async (req, res, next) => {
 
 const downloadFileByType = async (req, res, next) => {
   try {
-    const {userId, fileType} = req.params;
+    const { userId, fileType } = req.params;
     const user = await db.User.findById(userId);
     if (!user) {
       return res.status(404).send("User not found");
