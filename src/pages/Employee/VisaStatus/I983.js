@@ -10,6 +10,16 @@ const I983 = ({ statusOfCurrentStep, onI983Click, feedback }) => {
     <Content>
       <div style={{ backgroundColor: "#f5f3f38f", padding: "10px 10px" }}>
         <h3>Step 3: I-983</h3>
+        <div
+          style={{
+            backgroundColor: "lightyellow",
+            padding: "10px",
+            margin: "10px 0",
+            border: "1px solid #f0c14b",
+          }}
+        >
+          {"feiopjfowj"}
+        </div>
         {statusOfCurrentStep === "never" && (
           <>
             <div>

@@ -85,7 +85,7 @@ const fields = {
   },
 };
 
-const OPTForm = () => {
+const OPTForm = ({ isFormDisabled = false }) => {
   const [workTitle, setWorkTitle] = useState("");
 
   const onTitleChange = (value) => {
@@ -105,6 +105,7 @@ const OPTForm = () => {
             placeholder={fields.workTitle.placeholder}
             onChange={onTitleChange}
             style={{ width: "200px" }}
+            disabled={isFormDisabled}
           >
             <Option value="H1B">H1-B</Option>
             <Option value="L2">L2</Option>
@@ -123,7 +124,7 @@ const OPTForm = () => {
             label="Start Date"
             rules={fields.startDate.rules}
           >
-            <DatePicker />
+            <DatePicker disabled={isFormDisabled} />
           </Form.Item>
 
           <Form.Item
@@ -132,7 +133,7 @@ const OPTForm = () => {
             label="End Date"
             rules={fields.endDate.rules}
           >
-            <DatePicker />
+            <DatePicker disabled={isFormDisabled} />
           </Form.Item>
         </Space>
       </div>
