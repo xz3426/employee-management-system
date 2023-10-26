@@ -242,7 +242,7 @@ const getUserApplicationStatus = async (req, res, next) => {
       var status = user[applicationName].status;
     } else {
       // Code for Node.js 16 and earlier
-      var status = JSON.parse(user[applicationName]).status;
+      var status = user[applicationName].status;
     }
     return res.status(200).json({ ApplicationStatus: status });
   } catch (err) {

@@ -47,7 +47,6 @@ export const getUserDetailById = async (userId) => {
   });
 };
 
-
 export const getUserById = async (id) => {
   return await apiCall({
     url: `/api/auth/user/${id}`,
@@ -69,4 +68,5 @@ export const fetchAllUsers = async () => {
     method: "GET",
   });
 };
+
 
