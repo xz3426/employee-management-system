@@ -37,6 +37,7 @@ const VisaStatus = () => {
   useEffect(() => {
     async function fetchData() {
       const userStatus = await getVisaStatus(userID);
+      console.log(userStatus);
       setVisaStatus(userStatus.currentStep);
       setStatusOfCurrentStep(userStatus.status);
       setFeedBack(userStatus.feedback);
@@ -44,8 +45,7 @@ const VisaStatus = () => {
     }
     fetchData();
   }, []);
-  console.log(visaStatus);
-  console.log(statusOfCurrentStep);
+
   const onOPTReceiptClick = () => {
     setStatusOfCurrentStep("never");
     setVisaStatus("OPTEAD");
@@ -68,7 +68,21 @@ const VisaStatus = () => {
         <h1 style={title}>Visa Status Management</h1>
         <div style={container}>
           {!isLoading && visaStatus === "onBoardingApplication" && (
-            <h2>Wating for the onBoardingApplication to be completed</h2>
+            <h2>
+              Wating for the onBoardingApplication to be Approved by Your HR
+            </h2>
+          )}
+
+          {!isLoading && visaStatus === "done" && <h2>You are all set!</h2>}
+
+          {statusOfCurrentStep === "rejected" && (
+            <div>
+              <h4>Here is the feedback from HR:</h4>
+              <h5 style={{ textAlign: "center", color: "red" }}>
+                {" "}
+                {feedback}{" "}
+              </h5>
+            </div>
           )}
 
           {!isLoading && visaStatus === "optRecipt" && (

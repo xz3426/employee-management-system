@@ -35,7 +35,7 @@ const PersonalInfoDisplay = ({ userDetail, uploadedFilesInfo }) => {
 
   const { userID } = useAuth();
   useEffect(() => {
-    const USID = userDetail;
+    const USID = userDetail.USID;
     if (USID === "yes") {
       setIsAmerican(true);
     } else {

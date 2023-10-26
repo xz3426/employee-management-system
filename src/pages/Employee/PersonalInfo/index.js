@@ -44,17 +44,19 @@ const PersonalInfo = () => {
 
   async function fetchData() {
     let userDetail = await getUserDetailById(userID);
-    let files = await getUserFilesInfo(userID);
-    const birth = moment(userDetail.birth);
-    const startDate = moment(userDetail.startDate);
-    const endDate = moment(userDetail.endDate);
-    setUserDetail({
-      ...userDetail,
-      birth: birth,
-      startDate: startDate,
-      endDate: endDate,
-    });
-    setFiles(files);
+    if (userDetail) {
+      let files = await getUserFilesInfo(userID);
+      const birth = moment(userDetail.birth);
+      const startDate = moment(userDetail.startDate);
+      const endDate = moment(userDetail.endDate);
+      setUserDetail({
+        ...userDetail,
+        birth: birth,
+        startDate: startDate,
+        endDate: endDate,
+      });
+      setFiles(files);
+    }
   }
 
   useEffect(() => {
@@ -62,6 +64,7 @@ const PersonalInfo = () => {
   }, []);
   return (
     <Content>
+      {!userDetail && <h2>Please finish your onBoardingApplication form!</h2>}
       {userDetail && (
         <PersonalInfoDisplay
           userDetail={userDetail}

@@ -181,7 +181,7 @@ const submitOnboardingForm = async (req, res, next) => {
     }
     user.userDetail = req.body;
     user.onBoardingApplication.status = "pending";
-    user.currentStep = "optRecipt";
+    // user.currentStep = "optRecipt";
     await user.save();
 
     return res
@@ -267,6 +267,11 @@ const getVisaStatus = async (req, res, next) => {
       return res.status(404).send({ message: "user not found", ok: false });
     }
     const { currentStep } = user;
+    if (currentStep === "done") {
+      return res
+        .status(200)
+        .json({ currentStep: "done", status: "done", feedback: "" });
+    }
     const { status, feedback } = user[currentStep];
     return res
       .status(200)
