@@ -67,3 +67,10 @@ export const fetchAllUsers = async () => {
     method: "GET",
   });
 };
+
+export const getVisaStatus = async (userId) => {
+  return await apiCall({
+    url: `/api/auth/visaStatus/${userId}`,
+    method: "GET",
+  });
+};
