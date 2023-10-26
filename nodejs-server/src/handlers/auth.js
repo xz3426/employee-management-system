@@ -176,12 +176,10 @@ const submitOnboardingForm = async (req, res, next) => {
       });
     }
     user.USID = USID;
-    if (USID === "yes") {
-      user.currentStep = "done";
-    }
+
     user.userDetail = req.body;
     user.onBoardingApplication.status = "pending";
-    // user.currentStep = "optRecipt";
+
     await user.save();
 
     return res
