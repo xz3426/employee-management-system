@@ -33,6 +33,10 @@ const userSchema = new Schema({
   USID: {
     type: String,
   },
+  currentStep: {
+    type: String,
+    default: "onBoardingApplication",
+  },
   optRecipt: {
     file: {
       originalName: String,

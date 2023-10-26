@@ -19,7 +19,8 @@ import VisaStatus from "./pages/Employee/VisaStatus";
 import PersonalInfo from "./pages/Employee/PersonalInfo";
 import AllEmployeeProfiles from "./pages/HR/AllEmployeeProfiles";
 import EntireProfile from "./pages/HR/EntireProfile";
-import HR from "./pages/HR";
+import VisaStatusManagement from "./pages/HR/VisaStatusManagement";
+import HiringManagement from "./pages/HR/HiringManagement";
 import TestOPT from "./pages/Employee/TestOPT";
 
 const { Header, Footer, Content } = Layout;
@@ -42,13 +43,14 @@ function App() {
             <Route path="signup" element={<SignUp />} />
             <Route path="signin" element={<SignIn />} />
             <Route path="employee" element={<Employee />} />
-            <Route path="hr" element={<HR />} />
+            <Route path="hr/hiringmanagement" element={<HiringManagement />} />
             <Route path="test" element={<TestOPT />} />
             <Route path="employee/visaStatus" element={<VisaStatus />} />
             <Route path="employee/personalInfo" element={<PersonalInfo />} />
             <Route path="onboarding" element={<OnboardingForm />} />
-            <Route path="allEmployeeProfiles" element={<AllEmployeeProfiles />} />
-            <Route path="allEmployeeProfiles/profileDetail/:id" element={<EntireProfile />} />
+            <Route path="hr/allEmployeeProfiles" element={<AllEmployeeProfiles />} />
+            <Route path="hr/allEmployeeProfiles/profileDetail/:id" element={<EntireProfile />} />
+            <Route path="hr/visaStatusManagement" element={<VisaStatusManagement />} />
 
             
 

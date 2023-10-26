@@ -20,7 +20,7 @@ export default function SignIn() {
     if (signInStatus === 'succeeded') {
       message.success("Sign in successfully");
       if (authorization === "hr"){
-        navigate('/hr');
+        navigate('/hr/allEmployeeProfiles');
       }else if (authorization === "regular"){
         navigate('/employee');
       }
