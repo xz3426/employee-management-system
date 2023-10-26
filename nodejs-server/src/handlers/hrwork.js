@@ -169,4 +169,31 @@ const searchUsers = async (req, res, next) => {
   }
 };
 
-module.exports = {sendToken, generateUser, fetchTokens, deleteToken, fetchUsers,fetchAllUsers, searchUsers};
+
+const manageDoc = async (req, res, next) => {
+  try {
+    const {fileType, userId, action, feedback} = req.body;
+
+    const user = await db.User.findById(userId);
+    if (!user){
+      return res.status(400).json({message:"User Not Found", ok: false});
+    }
+
+    if (user[fileType]) {
+      // Update the status and feedback based on the 'action' value
+      user[fileType].status = action;
+
+      user[fileType].feedback = feedback;
+    }
+  
+    // if [fileType === "optRecipt"]
+    await user.save();
+
+    return res.status(200).json({ message: "File Updated Successfully", ok: true });
+  } catch (error) {
+    console.error("Error:", error);
+    return res.status(500).json({ message: "Server Error", ok: false });
+  }
+};
+
+module.exports = {sendToken, generateUser, fetchTokens, deleteToken, fetchUsers,fetchAllUsers, searchUsers, manageDoc};

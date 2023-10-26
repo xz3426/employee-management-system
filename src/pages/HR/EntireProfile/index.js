@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Layout, Avatar, Space, Descriptions } from "antd";
 import { useParams } from "react-router-dom";
 import { getUserById } from "services/auth";
+// import { BACKEND_URI } from "@/consts";
 
 const { Content } = Layout;
 
@@ -47,6 +48,15 @@ const EntireProfile = () => {
       const response = await getUserById(id);
       console.log(response);
       setUser(response);
+
+      function formatDate(date) {
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1; // Month is 0-indexed, so add 1
+        const day = date.getDate();
+        return `${year}-${month.toString().padStart(2, "0")}-${day
+          .toString()
+          .padStart(2, "0")}`;
+      }
 
       const items = [
         {
