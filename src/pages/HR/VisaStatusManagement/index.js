@@ -77,8 +77,8 @@ const VisaStatusManagement = () => {
                 value={feedback}
                 onChange={(e) => setFeedback(e.target.value)}
             />
-            <Button onClick={() => handleAction("Approved",user._id, user.currentStep)}>Approve</Button>
-            <Button onClick={() => handleAction("Rejected",user._id, user.currentStep)}>Reject</Button>
+            <Button onClick={() => handleAction("approved",user._id, user.currentStep)}>Approve</Button>
+            <Button onClick={() => handleAction("rejected",user._id, user.currentStep)}>Reject</Button>
             </div>
     
     
@@ -180,7 +180,7 @@ const VisaStatusManagement = () => {
                 filters: [
                   { text: "never", value: "never" },
                   { text: "pending", value: "pending" },
-                  { text: "Rejected", value: "Rejected" },
+                  { text: "rejected", value: "rejected" },
                 ],
                 onFilter: (value, record) => record[record.currentStep]?.status === value,
                 filterDropdown: (
@@ -196,7 +196,7 @@ const VisaStatusManagement = () => {
                       )}
                       <Option value="never">never</Option>
                       <Option value="pending">pending</Option>
-                      <Option value="Rejected">Rejected</Option>
+                      <Option value="rejected">rejected</Option>
                     </Select>
                     <Button
                       type="primary"

@@ -183,7 +183,7 @@ const manageDoc = async (req, res, next) => {
       // Update the status and feedback based on the 'action' value
       user[fileType].status = action;
       user[fileType].feedback = feedback;
-      if (action === "Approved"){
+      if (action === "approved"){
         if (fileType === "onBoardingApplication"){
           user.currentStep = ((user.USID === "no") && (user.userDetail.workTitle === "F1"))? "optRecipt":"done";
         }else if (fileType === "optRecipt"){

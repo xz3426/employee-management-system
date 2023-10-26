@@ -133,8 +133,8 @@ const OnboardingTable = () => {
               value={feedback}
               onChange={(e) => setFeedback(e.target.value)}
             />
-            <Button onClick={() => handleAction("Approved",user._id)}>Approve</Button>
-            <Button onClick={() => handleAction("Rejected",user._id)}>Reject</Button>
+            <Button onClick={() => handleAction("approved",user._id)}>Approve</Button>
+            <Button onClick={() => handleAction("rejected",user._id)}>Reject</Button>
       </div>
       
     </Content>
