@@ -119,7 +119,7 @@ const EntireProfile = () => {
                 " " +
                 response.userDetail.emergencyLastName}
               <br />
-              Phone Number: {response.userDetail.emergencyPhone}
+              Phone Number: {response.userDetail.emergencyCellPhone}
               <br />
               Email: {response.userDetail.emergencyEmail}
               <br />

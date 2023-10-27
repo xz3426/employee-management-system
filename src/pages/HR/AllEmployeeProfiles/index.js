@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import useAuth from "hooks/useAuth";
 import { Layout, Input, Avatar, List } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
-import { fetchAllUsers, searchUsers } from"services/hrwork";
+import { fetchAllUsers, searchUsers } from "services/hrwork";
 
 const { Content } = Layout;
 const { Search } = Input;
@@ -17,20 +17,17 @@ const container = {
   backgroundColor: "white",
   display: "flex",
   flexDirection: "column",
-  marginLeft: "350px",
-  marginRight: "350px",
+  marginLeft: "10vw",
+  marginRight: "10vw",
   padding: "30px 100px",
   fontFamily: "Arial, sans-serif",
 };
-
-
 
 const AllEmployeeProfiles = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [users, setUsers] = useState();
   const [selectedUserId, setSelectedUserId] = useState(null);
   const navigate = useNavigate();
-
 
   useEffect(() => {
     async function fetchData() {
@@ -43,12 +40,10 @@ const AllEmployeeProfiles = () => {
     fetchData();
   }, []);
 
-
-  async function onSearch(value){
+  async function onSearch(value) {
     const response = await searchUsers(value);
     setUsers(response);
   }
-
 
   return (
     <Content>
@@ -70,17 +65,26 @@ const AllEmployeeProfiles = () => {
               itemLayout="horizontal"
               dataSource={users}
               renderItem={(item) => (
-                <List.Item onClick={() => navigate(`profileDetail/${item._id}`)}>
+                <List.Item
+                  onClick={() => navigate(`profileDetail/${item._id}`)}
+                >
                   <List.Item.Meta
                     avatar={<Avatar src={item.userDetail.profileImage} />}
-                    title={ item.userDetail.firstName + " " + (item.userDetail.midName? item.userDetail.midName : "") + " " + item.userDetail.lastName }
+                    title={
+                      item.userDetail.firstName +
+                      " " +
+                      (item.userDetail.midName ? item.userDetail.midName : "") +
+                      " " +
+                      item.userDetail.lastName
+                    }
                     description={
                       <>
-                        <p>Work Authorization Title: {item.userDetail.workTitle} </p>
+                        <p>
+                          Work Authorization Title: {item.userDetail.workTitle}{" "}
+                        </p>
                         <p>Phone: {item.userDetail.cellPhone} </p>
                         <p>Email: {item.userDetail.email} </p>
                       </>
-                      
                     }
                   />
                 </List.Item>
