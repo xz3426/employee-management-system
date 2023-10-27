@@ -55,13 +55,13 @@ const NavBar_ = () => {
             <div style={{ display: "flex", padding: "20px" }}>
               <Space direction="horizontal" size={15}>
                 <Link to="/hr/allEmployeeProfiles">
-                  <h2>Employee Profile </h2>
+                  <h2> Profile </h2>
                 </Link>
                 <Link to="/hr/hiringManagement">
-                  <h2>Hiring Management </h2>
+                  <h2>Hiring </h2>
                 </Link>
                 <Link to="/hr/visaStatusManagement">
-                  <h2>Visa Status Management</h2>
+                  <h2>Visa Status </h2>
                 </Link>
               </Space>
             </div>
