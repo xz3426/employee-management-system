@@ -21,8 +21,8 @@ const container = {
   backgroundColor: "white",
   display: "flex",
   flexDirection: "column",
-  marginLeft: "350px",
-  marginRight: "350px",
+  marginLeft: "10vw",
+  marginRight: "10vw",
   padding: "30px 100px",
   fontFamily: "Arial, sans-serif",
 };
