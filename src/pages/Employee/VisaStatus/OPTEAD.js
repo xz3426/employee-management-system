@@ -11,6 +11,7 @@ const OPTEAD = ({ statusOfCurrentStep, onOPTEADClick, feedback }) => {
     <Content>
       <div style={{ backgroundColor: "#f5f3f38f", padding: "10px 10px" }}>
         <h3>Step 2: OPT EAD</h3>
+        <h4>Current Status: {statusOfCurrentStep}</h4>
         {statusOfCurrentStep === "never" && (
           <div>
             <h4 style={{ textAlign: "center" }}>

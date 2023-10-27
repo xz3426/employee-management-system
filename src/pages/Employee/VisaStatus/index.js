@@ -75,15 +75,16 @@ const VisaStatus = () => {
 
           {!isLoading && visaStatus === "done" && <h2>You are all set!</h2>}
 
-          {statusOfCurrentStep === "rejected" && (
-            <div>
-              <h4>Here is the feedback from HR:</h4>
-              <h5 style={{ textAlign: "center", color: "red" }}>
-                {" "}
-                {feedback}{" "}
-              </h5>
-            </div>
-          )}
+          {statusOfCurrentStep === "rejected" &&
+            visaStatus === "onBoardingApplication" && (
+              <div>
+                <h4>Here is the feedback from HR:</h4>
+                <h5 style={{ textAlign: "center", color: "red" }}>
+                  {" "}
+                  {feedback}{" "}
+                </h5>
+              </div>
+            )}
 
           {!isLoading && visaStatus === "optRecipt" && (
             <OPTReceipt

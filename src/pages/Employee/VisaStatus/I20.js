@@ -11,6 +11,7 @@ const I20 = ({ statusOfCurrentStep, feedback }) => {
     <Content>
       <div style={{ backgroundColor: "#f5f3f38f", padding: "10px 10px" }}>
         <h3>Step 4: I20</h3>
+        <h4>Current Status: {statusOfCurrentStep}</h4>
         {statusOfCurrentStep === "never" && (
           <div>
             <h4 style={{ textAlign: "center" }}>

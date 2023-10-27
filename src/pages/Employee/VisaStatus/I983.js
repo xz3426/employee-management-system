@@ -10,6 +10,7 @@ const I983 = ({ statusOfCurrentStep, onI983Click, feedback }) => {
     <Content>
       <div style={{ backgroundColor: "#f5f3f38f", padding: "10px 10px" }}>
         <h3>Step 3: I-983</h3>
+        <h4>Current Status: {statusOfCurrentStep}</h4>
         {statusOfCurrentStep === "never" && (
           <>
             <div>

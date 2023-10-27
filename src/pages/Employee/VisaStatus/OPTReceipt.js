@@ -28,6 +28,7 @@ const OPTReceipt = ({ statusOfCurrentStep, onOPTReceiptClick, feedback }) => {
     <Content>
       <div style={{ backgroundColor: "#f5f3f38f", padding: "10px 10px" }}>
         <h3>Step 1: OPT Receipt</h3>
+        <h4>Current Status: {statusOfCurrentStep}</h4>
         {statusOfCurrentStep === "never" && (
           <div>
             <h4 style={{ textAlign: "center" }}>
