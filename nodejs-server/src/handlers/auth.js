@@ -8,7 +8,7 @@ const signup = async (req, res, next) => {
       const newUser = await db.Token.findOne({ user: email });
       if (!newUser) {
         const error = {
-          message: "Invalid email/password",
+          message: "Invalid email",
           ok: false,
         };
         return res.status(400).json({ error });

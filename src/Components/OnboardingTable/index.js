@@ -122,9 +122,9 @@ const OnboardingTable = () => {
         label: 'Referral',
         children: (
           <>
-            Name: {user.userDetail.referFirstName + " " + user.userDetail.referMidName + " " + user.userDetail.referLastName}
+            Name: {user.userDetail.referFirstName + " " + user.userDetail.referLastName}
             <br />
-            Phone Number: {user.userDetail.referPhone}
+            Phone Number: {user.userDetail.referCellPhone}
             <br />
             Email: {user.userDetail.referEmail}
             <br />
@@ -139,9 +139,9 @@ const OnboardingTable = () => {
         label: 'Emergency Contact',
         children: (
           <>
-            Name: {user.userDetail.emergencyFirstName + " " + user.userDetail.emergencyMidName + " " + user.userDetail.emergencyLastName}
+            Name: {user.userDetail.emergencyFirstName + " " + user.userDetail.emergencyLastName}
             <br />
-            Phone Number: {user.userDetail.emergencyPhone}
+            Phone Number: {user.userDetail.emergencyCellPhone}
             <br />
             Email: {user.userDetail.emergencyEmail}
             <br />
