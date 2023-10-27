@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "hooks/useAuth";
-import { Button, Layout, message, Upload } from "antd";
+import { Button, Layout, message, Upload, Space } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import UploadComponent from "Components/UploadComponent";
 const { Content } = Layout;
@@ -11,6 +11,20 @@ const I983 = ({ statusOfCurrentStep, onI983Click, feedback }) => {
       <div style={{ backgroundColor: "#f5f3f38f", padding: "10px 10px" }}>
         <h3>Step 3: I-983</h3>
         <h4>Current Status: {statusOfCurrentStep}</h4>
+        <Space direction="vertical">
+          <a
+            href="https://www.ice.gov/doclib/sevis/pdf/i983.pdf"
+            target="_blank"
+          >
+            Empty I-983 Template
+          </a>
+          <a
+            href="https://oiss.isp.msu.edu/files/9316/8909/5443/Sample_Form_I-983_Last_Updated_71123.pdf"
+            target="_blank"
+          >
+            Sample I-983 Template
+          </a>
+        </Space>
         {statusOfCurrentStep === "never" && (
           <>
             <div>
