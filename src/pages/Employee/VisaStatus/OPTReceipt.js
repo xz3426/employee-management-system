@@ -31,7 +31,7 @@ const OPTReceipt = ({ statusOfCurrentStep, onOPTReceiptClick, feedback }) => {
         <h4>Current Status: {statusOfCurrentStep}</h4>
         {statusOfCurrentStep === "never" && (
           <div>
-            <h4 style={{ textAlign: "center", color: "red" }}>
+            <h4 style={{ textAlign: "center" }}>
               Please upload a copy of your OPT Receipt.
             </h4>
 
@@ -57,7 +57,7 @@ const OPTReceipt = ({ statusOfCurrentStep, onOPTReceiptClick, feedback }) => {
         {statusOfCurrentStep === "rejected" && (
           <div>
             <h4>Here is the feedback from HR:</h4>
-            <h5 style={{ textAlign: "center" }}> {feedback} </h5>
+            <h5 style={{ textAlign: "center", color: "red" }}> {feedback} </h5>
             <UploadComponent fileType={optRecipt} />
           </div>
         )}
