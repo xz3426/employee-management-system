@@ -36,7 +36,7 @@ const I20 = ({ statusOfCurrentStep, feedback }) => {
         {statusOfCurrentStep === "rejected" && (
           <div>
             <h4>Here is the feedback from HR:</h4>
-            <h5 style={{ textAlign: "center" }}> {feedback} </h5>
+            <h5 style={{ textAlign: "center", color: "red" }}> {feedback} </h5>
             <UploadComponent fileType={"I20"} />
           </div>
         )}
