@@ -29,7 +29,7 @@ const UploadComponent = ({ fileType }) => {
             uid: "-1",
             name: fileName,
             status: "done",
-            url: `http://${BACKEND_URI}/files/${userID}/${fileType}`,
+            url: `${BACKEND_URI}/files/${userID}/${fileType}`,
           },
         ]);
       }
