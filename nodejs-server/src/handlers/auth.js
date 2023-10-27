@@ -179,6 +179,9 @@ const submitOnboardingForm = async (req, res, next) => {
 
     user.userDetail = req.body;
     user.onBoardingApplication.status = "pending";
+    if (req.body.profileImage) {
+      user.profileImageUrl = req.body.profileImage;
+    }
 
     await user.save();
 
