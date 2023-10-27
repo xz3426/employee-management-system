@@ -5,8 +5,8 @@ const { Schema } = mongoose;
 const tokenSchema = new Schema({
     hr: {
         type: String,
-        unique: true,
-        retqure: true,
+        // unique: true,
+        require: true,
     },
 
     user: {
@@ -17,13 +17,18 @@ const tokenSchema = new Schema({
 
     token: {
         type: String,
-        unique: true,
-        require: true,
+        // unique: true,
+        // require: true,
     },
 
     createTime: {
         type: Date,
-        require: true,
+        // require: true,
+    },
+
+    registration:{
+        type: String,
+        default: "Token Not Send"
     }
 });
 
@@ -40,6 +45,8 @@ tokenSchema.methods.compareToken = async function (candidateToken, next) {
       return next(err);
     }
   };
+
+
 
 const Token = mongoose.model("Token", tokenSchema);
 module.exports = Token;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "hooks/useAuth";
-import { Button, Select, Form, Layout } from "antd";
+import { Button, Select, Form, Layout, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { submitOnboardingForm } from "services/auth";
 import ReferenceForm from "./reference";
@@ -45,11 +45,12 @@ const OnboardingForm = () => {
 
   const onSubmit = async (data) => {
     data.id = userID;
-    data.ApplicationStatus = "pending";
-    console.log(data);
-    await submitOnboardingForm(data);
-    // Todo: Add Success and error message
-    navigate("/");
+    try {
+      await submitOnboardingForm(data);
+      message.success("onBoarding for submit successfully");
+    } catch (error) {
+      message.error(error.message);
+    }
   };
 
   return (

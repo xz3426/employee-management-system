@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { signIn, signUp } from "services/auth";
+import { searchUsers, fetchAllUsers } from "services/hrwork";
 import { addError, removeError } from "./errorSlice";
 
 export const initialState = {
@@ -38,6 +39,7 @@ export const signUpUser = createAsyncThunk(
     }
   }
 );
+
 
 const currentUserSlice = createSlice({
   name: "currentUser",

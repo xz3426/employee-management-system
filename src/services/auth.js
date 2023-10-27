@@ -40,17 +40,37 @@ export const submitOnboardingForm = async (data) => {
   });
 };
 
-export const getUserDetailById = async (data) => {
+export const getUserDetailById = async (userId) => {
   return await apiCall({
-    url: `/api/auth/userDetail/${data.id}`,
+    url: `/api/auth/userDetail/${userId}`,
     method: "GET",
-    data,
   });
 };
 
-export const getUserApplicationStatus = async (id) => {
+export const getUserById = async (id) => {
   return await apiCall({
-    url: `/api/auth/${id}`,
+    url: `/api/auth/user/${id}`,
+    method: "GET",
+  });
+};
+
+export const getUserApplicationStatus = async (userId, applicationName) => {
+  return await apiCall({
+    url: `/api/auth/${userId}/${applicationName}`,
+    method: "GET",
+  });
+};
+
+export const fetchAllUsers = async () => {
+  return await apiCall({
+    url: `/api/auth/users`,
+    method: "GET",
+  });
+};
+
+export const getVisaStatus = async (userId) => {
+  return await apiCall({
+    url: `/api/auth/visaStatus/${userId}`,
     method: "GET",
   });
 };

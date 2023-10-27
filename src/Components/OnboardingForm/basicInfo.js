@@ -173,18 +173,10 @@ const fields = {
   },
 };
 
-const BasicInfoForm = ({ user }) => {
-  const [profileImage, setProfileImage] = useState();
-  useEffect(() => {
-    if (user?.imgLink !== undefined) {
-      setProfileImage(user.imgLink);
-    }
-  }, []);
-
-  const onBirthDateChange = (date, dateString) => {
-    console.log(date, dateString);
-  };
-
+const BasicInfoForm = ({ profileImageUrl, isFormDisabled = false }) => {
+  const [profileImage, setProfileImage] = useState(
+    profileImageUrl ? profileImageUrl : ""
+  );
   return (
     <Content>
       <div style={{ backgroundColor: "white" }}>
@@ -195,7 +187,7 @@ const BasicInfoForm = ({ user }) => {
             label="First Name"
             rules={fields.firstName.rules}
           >
-            <Input />
+            <Input disabled={isFormDisabled} />
           </Form.Item>
 
           <Form.Item
@@ -204,7 +196,7 @@ const BasicInfoForm = ({ user }) => {
             label="Mid Name"
             rules={fields.midName.rules}
           >
-            <Input />
+            <Input disabled={isFormDisabled} />
           </Form.Item>
 
           <Form.Item
@@ -213,7 +205,7 @@ const BasicInfoForm = ({ user }) => {
             label="Last Name"
             rules={fields.lastName.rules}
           >
-            <Input />
+            <Input disabled={isFormDisabled} />
           </Form.Item>
         </Space>
 
@@ -224,7 +216,7 @@ const BasicInfoForm = ({ user }) => {
             label="preferred Name"
             rules={fields.preferredName.rules}
           >
-            <Input style={{ width: "100%" }} />
+            <Input disabled={isFormDisabled} style={{ width: "100%" }} />
           </Form.Item>
 
           <Form.Item
@@ -233,7 +225,7 @@ const BasicInfoForm = ({ user }) => {
             label="Email"
             rules={fields.email.rules}
           >
-            <Input style={{ width: "100%" }} />
+            <Input disabled={isFormDisabled} style={{ width: "100%" }} />
           </Form.Item>
         </Space>
 
@@ -244,7 +236,7 @@ const BasicInfoForm = ({ user }) => {
             label="Cell Phone Number"
             rules={fields.cellPhone.rules}
           >
-            <Input style={{ width: "100%" }} />
+            <Input disabled={isFormDisabled} style={{ width: "100%" }} />
           </Form.Item>
 
           <Form.Item
@@ -253,7 +245,7 @@ const BasicInfoForm = ({ user }) => {
             label="Work Phone Number"
             rules={fields.workPhone.rules}
           >
-            <Input style={{ width: "100%" }} />
+            <Input disabled={isFormDisabled} style={{ width: "100%" }} />
           </Form.Item>
         </Space>
 
@@ -263,7 +255,10 @@ const BasicInfoForm = ({ user }) => {
           label="Current Address"
           rules={fields.address.rules}
         >
-          <Input placeholder={fields.address.placeholder} />
+          <Input
+            disabled={isFormDisabled}
+            placeholder={fields.address.placeholder}
+          />
         </Form.Item>
 
         <Space size="large">
@@ -277,6 +272,7 @@ const BasicInfoForm = ({ user }) => {
               placeholder={fields.gender.placeholder}
               options={fields.gender.gender}
               style={{ width: "200px" }}
+              disabled={isFormDisabled}
             />
           </Form.Item>
 
@@ -286,13 +282,14 @@ const BasicInfoForm = ({ user }) => {
             label="Date of Birth"
             rules={fields.birth.rules}
           >
-            <DatePicker onChange={onBirthDateChange} />
+            <DatePicker disabled={isFormDisabled} />
           </Form.Item>
         </Space>
 
         <ImagePreview
           profileImage={profileImage}
           setProfileImage={setProfileImage}
+          disabled={isFormDisabled}
         />
       </div>
     </Content>

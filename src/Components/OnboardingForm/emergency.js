@@ -82,7 +82,7 @@ const fields = {
   },
 };
 
-const EmergencyForm = () => {
+const EmergencyForm = ({ isFormDisabled = false }) => {
   return (
     <Content>
       <h3>Emergency Contact</h3>
@@ -96,10 +96,7 @@ const EmergencyForm = () => {
             rules={fields.firstName.rules}
             // initialValue={product?.productName}
           >
-            <Input
-            // style={{ width: "100%" }}
-            // placeholder={fields.productName.placeholder}
-            />
+            <Input disabled={isFormDisabled} />
           </Form.Item>
 
           <Form.Item
@@ -109,10 +106,7 @@ const EmergencyForm = () => {
             rules={fields.midName.rules}
             // initialValue={product?.productName}
           >
-            <Input
-            // style={{ width: "100%" }}
-            // placeholder={fields.productName.placeholder}
-            />
+            <Input disabled={isFormDisabled} />
           </Form.Item>
 
           <Form.Item
@@ -122,10 +116,7 @@ const EmergencyForm = () => {
             rules={fields.lastName.rules}
             // initialValue={product?.productName}
           >
-            <Input
-            // style={{ width: "100%" }}
-            // placeholder={fields.productName.placeholder}
-            />
+            <Input disabled={isFormDisabled} />
           </Form.Item>
         </Space>
 
@@ -137,10 +128,7 @@ const EmergencyForm = () => {
             rules={fields.cellPhone.rules}
             // initialValue={product?.productName}
           >
-            <Input
-              style={{ width: "100%" }}
-              // placeholder={fields.productName.placeholder}
-            />
+            <Input style={{ width: "100%" }} disabled={isFormDisabled} />
           </Form.Item>
 
           <Form.Item
@@ -150,10 +138,7 @@ const EmergencyForm = () => {
             rules={fields.email.rules}
             // initialValue={product?.productName}
           >
-            <Input
-              style={{ width: "100%" }}
-              // placeholder={fields.productName.placeholder}
-            />
+            <Input style={{ width: "100%" }} disabled={isFormDisabled} />
           </Form.Item>
         </Space>
 
@@ -166,7 +151,7 @@ const EmergencyForm = () => {
         >
           <Input
             placeholder={fields.relationship.placeholder}
-            // value={product?.description}
+            disabled={isFormDisabled}
           />
         </Form.Item>
       </div>
