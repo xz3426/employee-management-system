@@ -229,7 +229,9 @@ const VisaStatusManagement = () => {
       key: "action",
       render: (text, record) => (
         <div>
-        <Button onClick={() => handleViewDetails(record)}>
+        
+        <Button onClick={() => handleViewDetails(record)}
+        disabled={record[record.currentStep]?.status === "never"}>
           View User Profile
         </Button>
         </div>
