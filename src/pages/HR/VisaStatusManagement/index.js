@@ -62,12 +62,12 @@ const VisaStatusManagement = () => {
             <div>
                 
             <p>
-                OPT Receipt:{' '}
+                {user.currentStep + ' '}
                 <a
-                href={`http://${BACKEND_URI}/files/${user._id}/optRecipt`}
+                href={`${BACKEND_URI}/files/${user._id}/${user.currentStep}`}
                 target="_blank"
                 >
-                {user.optRecipt.file.originalName}
+                {user[user.currentStep].file.originalName}
                 </a>
             </p>
 

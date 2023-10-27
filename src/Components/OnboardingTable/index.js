@@ -175,8 +175,12 @@ const OnboardingTable = () => {
   }
 
   const handleViewDetails = (user) => {
+    // Check if the status is 'never' or 'approved' and prevent opening the modal
+    if (user.onBoardingApplication.status === "never" || user.onBoardingApplication.status === "approved") {
+      return;
+    }
     setSelectedUser(user);
-  }
+  };
 
   const handleCloseDetails = () => {
     setSelectedUser(null);
