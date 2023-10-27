@@ -1,31 +1,55 @@
-import React, { useState } from "react";
-import BreadCrumbs from "Components/BreadCrumbs";
+import React, { useState,useEffect } from "react";
 import TokenTable from "Components/TokenTable";
-import OnboardingTable from "Components/OnboardingTable"; // Import the OnboardingTable component
-// import { HR } from "@/consts";
+import OnboardingTable from "Components/OnboardingTable";
 
 const HiringManagement = () => {
-  const [currentPage, setCurrentPage] = useState("Registration Token");
-  const handleBreadcrumbClick = (newPage) => {
-    setCurrentPage(newPage);
+  const tabStyle = {
+    display: "flex",
+    justifyContent: "center",
+    margin: "20px",
   };
+
+  const buttonStyle = {
+    backgroundColor: "#007BFF",
+    color: "white",
+    padding: "10px 20px",
+    border: "none",
+    cursor: "pointer",
+    marginRight: "10px",
+    borderRadius: "5px",
+  };
+
+  const activeButtonStyle = {
+    ...buttonStyle,
+    backgroundColor: "#0056b3",
+  };
+  const [currentPage, setCurrentPage] = useState(
+    localStorage.getItem("selectedPage") || "Registration Token"
+  );
+
+  useEffect(() => {
+    localStorage.setItem("selectedPage", currentPage);
+  }, [currentPage]);
   return (
     <div>
-      <BreadCrumbs currentPage={currentPage} />
-      <div>
-        <button onClick={() => handleBreadcrumbClick("Registration Token")}>
+      <div style={tabStyle}>
+        <button
+          style={currentPage === "Registration Token" ? activeButtonStyle : buttonStyle}
+          onClick={() => setCurrentPage("Registration Token")}
+        >
           Registration Token
         </button>
-        <button onClick={() => handleBreadcrumbClick("Onboarding Application Review")}>
+        <button
+          style={currentPage === "Onboarding Application Review" ? activeButtonStyle : buttonStyle}
+          onClick={() => setCurrentPage("Onboarding Application Review")}
+        >
           Onboarding Application Review
         </button>
       </div>
-      {currentPage === "Registration Token" && (<TokenTable />)}
-      {currentPage === "Onboarding Application Review" && (
-        <OnboardingTable />
-      )}
+      {currentPage === "Registration Token" && <TokenTable />}
+      {currentPage === "Onboarding Application Review" && <OnboardingTable />}
     </div>
   );
-}
+};
 
 export default HiringManagement;

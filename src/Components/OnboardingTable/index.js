@@ -25,17 +25,44 @@ const OnboardingTable = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [feedback, setFeedback] = useState("");
   const [action, setAction] = useState(""); // to store "approve" or "reject"
+  const [rerender,setRerender] = useState(false);
+  const [statusFilter, setStatusFilter] = useState("pending");
 
+  const filterUsersByStatus = () => {
+    if (statusFilter === "All") {
+      return users;
+    } else {
+      return users.filter((user) =>
+        user.onBoardingApplication && user.onBoardingApplication.status === statusFilter
+      );
+    }
+  };
+
+  const handleStatusFilterChange = (selectedStatus) => {
+    setStatusFilter(selectedStatus);
+  };
   useEffect(() => {
     fetchUsers()
       .then((data) => {
         setUsers(data);
       });
-  }, []);
+  }, [rerender]);
+
+  const fetchUsersData = () => {
+    fetchUsers().then((data) => {
+      setUsers(data);
+    });
+  };
 
   const detailExtractor = (user) => {
     const dob = new Date(user.userDetail.birth);
-    const formattedDob = `${dob.getMonth() + 1}/${dob.getDate()}/${dob.getFullYear}`;
+    const formattedDob = `${dob.getMonth() + 1}/${dob.getDate()}/${dob.getFullYear()}`;
+    if (user.USID === 'no'){
+      var dos = new Date(user.userDetail.startDate);
+      var doe = new Date(user.userDetail.endDate);
+      var formattedDos = `${dos.getMonth() + 1}/${dos.getDate()}/${dos.getFullYear()}`;
+      var formattedDoe = `${doe.getMonth() + 1}/${doe.getDate()}/${doe.getFullYear()}`;
+    }
     const items = [
       {
         key: '1',
@@ -67,26 +94,48 @@ const OnboardingTable = () => {
       {
         key: '6',
         label: 'Date of Birth',
-        children: user.userDetail.birth,
-        span: 2,
+        children: formattedDob,
+        span: 1,
       },
       {
         key: '7',
+        label: 'US Citizen or resident',
+        children: user.USID,
+      },
+      {
+        key: '8',
         label: 'Visa Title',
         children: user.userDetail.workTitle,
       },
       {
-        key: '8',
+        key: '9',
         label: 'Start Date',
-        children: user.userDetail.startDate,
+        children: formattedDos,
       },
       {
           key: '10',
           label: 'End Date',
-          children: user.userDetail.endDate,
+          children: formattedDoe,
         },
       {
-        key: '10',
+        key: '11',
+        label: 'Referral',
+        children: (
+          <>
+            Name: {user.userDetail.referFirstName + " " + user.userDetail.referMidName + " " + user.userDetail.referLastName}
+            <br />
+            Phone Number: {user.userDetail.referPhone}
+            <br />
+            Email: {user.userDetail.referEmail}
+            <br />
+            Relationship: {user.userDetail.referRelationship}
+            <br />
+          </>
+        ),
+        span: 3,
+      },
+      {
+        key: '11',
         label: 'Emergency Contact',
         children: (
           <>
@@ -107,10 +156,8 @@ const OnboardingTable = () => {
   
         <Content>
       <div style={{ backgroundColor: "#f5f3f38f" }}>
-        <h1 style={title}>Employee Profiles</h1>
-        
           <div >
-            <h2>Employee Information Detail</h2>
+           
             <Space size="large">
               <Avatar size="large" src={user.profileImageUrl}></Avatar>
               <h3>
@@ -120,41 +167,25 @@ const OnboardingTable = () => {
             </Space>
             <br />
 
-            <Descriptions
-              size="small"
-              bordered
-              layout="vertical"
-              items={items}
-            />
+            <Descriptions size="small" bordered layout="vertical" items={items.filter(item => !(user.USID === "yes" && ["Visa Title", "Start Date", "End Date"].includes(item.label)))} />
           </div>
     
-         <Input
-              placeholder="Enter feedback"
+          {user.onBoardingApplication.status !== "approved" && (
+          <div style={{marginTop:"20px"}}>
+            <Input
+              placeholder="Enter feedback if reject this application"
               value={feedback}
               onChange={(e) => setFeedback(e.target.value)}
             />
-            <Button onClick={() => handleAction("approved",user._id)}>Approve</Button>
-            <Button onClick={() => handleAction("rejected",user._id)}>Reject</Button>
+            <div style={{ display: "flex", justifyContent: "space-between", marginTop:"10px" }}>
+            <Button style={{color:"green"}} onClick={() => handleAction("approved", user._id)}>Approve</Button>
+            <Button style={{color:"red"}} onClick={() => handleAction("rejected", user._id)}>Reject</Button>
+          </div>
+          </div>
+        )}
       </div>
       
     </Content>
-        /* {user.userDetail.USID === "no" ? (
-          <div>
-            <p>
-              OPT Receipt:{' '}
-              <a
-                href={`http://${BACKEND_URI}/files/${user._id}/optRecipt`}
-                target="_blank"
-              >
-                {user.optRecipt.file.originalName}
-              </a>
-            </p>
-
-          </div>
-        ) : null} */
-           
-  
-    
     );
   }
 
@@ -168,17 +199,13 @@ const OnboardingTable = () => {
     setSelectedUser(null);
     setFeedback(""); // Reset feedback
     setAction(""); // Reset action
-    
+    setRerender(!rerender);
 
     // You can perform the action (approve or reject) with the feedback here.
     // You may want to send this information to your backend API.
   }
 
   const handleViewDetails = (user) => {
-    // Check if the status is 'never' or 'approved' and prevent opening the modal
-    if (user.onBoardingApplication.status === "never" || user.onBoardingApplication.status === "approved") {
-      return;
-    }
     setSelectedUser(user);
   };
 
@@ -189,10 +216,19 @@ const OnboardingTable = () => {
   }
 
   return (
-    <div>
-      <h2>Onboarding Application Table</h2>
+    <div style={{margin: "30px"}}>
+      <div>
+        <span>Status Filter: </span>
+        <select value={statusFilter} onChange={(e) => handleStatusFilterChange(e.target.value)}>
+          <option value="All">All</option>
+          <option value="approved">Approved</option>
+          <option value="pending">Pending</option>
+          <option value="rejected">Rejected</option>
+          <option value="never">Never</option>
+        </select>
+      </div>
       <Table
-        dataSource={users}
+        dataSource={filterUsersByStatus()}
         columns={[
           {
             title: "Email",
@@ -202,6 +238,7 @@ const OnboardingTable = () => {
           {
             title: "Onboarding Status",
             key: "onBoardingStatus",
+            width: 550, 
             render: (text, record) => (
               <span>{record.onBoardingApplication ? record.onBoardingApplication.status : ''}</span>
             ),
@@ -210,12 +247,16 @@ const OnboardingTable = () => {
             title: "Action",
             key: "action",
             render: (text, record) => (
-              <Button onClick={() => handleViewDetails(record)}>
+              <div>
+              <Button onClick={() => handleViewDetails(record)} disabled={record.onBoardingApplication.status === "never" }>
                 View Application
               </Button>
+              <Button style={{ width: "80px", marginLeft: "20px", backgroundColor: "#d12626" , color:"white"}}>Delete</Button>
+              </div>
             ),
           },
         ]}
+        pagination={{ pageSize: 8 }} 
       />
 
       <Modal
@@ -227,7 +268,7 @@ const OnboardingTable = () => {
           //   Close
           // </Button>
         ]}
-        width={800}
+        width={1000}
       >
         {selectedUser !== null && detailExtractor(selectedUser)}
       </Modal>

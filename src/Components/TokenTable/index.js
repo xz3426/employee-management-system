@@ -5,9 +5,24 @@ import { fetchTokens, sendToken, deleteToken, generateUser } from "services/hrwo
 import useAuth from "hooks/useAuth";
 
 const TokenTableWrapper = styled.div`
-  padding: 20px;
-  background-color: #f5f5f5;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  // margin: 00px 000px; /* Updated margin for top and left/right */
+  // padding: 0px 10px;
+  // font-family: "Arial, sans-serif";
+  // align-items: center;
+  justify-content: center;
+  // min-height: 100vh; /* Ensure the div takes at least the full viewport height */
 `;
+const inputContainer = {
+  display: "flex",
+  alignItems: "center",
+};
+
+const tableMargin = {
+  marginTop: "10px" // Adjust the margin as needed
+};
 
 const TokenTable = () => {
   const [tokens, setTokens] = useState([]);
@@ -17,6 +32,7 @@ const TokenTable = () => {
   const [rerender, setRerender] = useState(false);
   const [emailValid, setEmailValid] = useState(true);
   const username = useAuth().username;
+
 
   useEffect(() => {
     fetchTokens()
@@ -110,21 +126,20 @@ const TokenTable = () => {
   };
 
   return (
+    
     <TokenTableWrapper>
-      <Input
-        type="text"
-        placeholder="Enter an Employee Email"
-        value={newUser}
-        onChange={(e) => setNewUser(e.target.value)}
-      />
-      <Button onClick={handleGenerateUser}>Generate User</Button>
-      {emailValid ? (
-        <p style={{ color: "green" }}>Email is valid!</p>
-      ) : (
-        <p style={{ color: "red" }}>
-          Invalid email format. Please enter a valid email address.
-        </p>
-      )}
+      <div style={inputContainer}>
+        <Input
+          type="text"
+          placeholder="Enter an Employee Email"
+          value={newUser}
+          onChange={(e) => setNewUser(e.target.value)}
+          style={{ width: "250px" }}
+        />
+        <Button onClick={handleGenerateUser}>Generate User</Button>
+      </div>
+      
+
       <Table
         dataSource={filteredTokens}
         rowKey={(record) => record.user}
@@ -170,6 +185,7 @@ const TokenTable = () => {
             ),
           },
         ]}
+        pagination={{ pageSize: 8 }} 
       />
     </TokenTableWrapper>
   );
