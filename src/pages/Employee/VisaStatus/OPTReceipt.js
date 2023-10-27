@@ -31,7 +31,7 @@ const OPTReceipt = ({ statusOfCurrentStep, onOPTReceiptClick, feedback }) => {
         <h4>Current Status: {statusOfCurrentStep}</h4>
         {statusOfCurrentStep === "never" && (
           <div>
-            <h4 style={{ textAlign: "center" }}>
+            <h4 style={{ textAlign: "center", color: "red" }}>
               Please upload a copy of your OPT Receipt.
             </h4>
 

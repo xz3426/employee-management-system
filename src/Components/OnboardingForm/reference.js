@@ -85,7 +85,7 @@ const fields = {
   },
 };
 
-const ReferenceForm = () => {
+const ReferenceForm = ({ isFormDisabled = false }) => {
   return (
     <Content>
       <h3>Reference Information</h3>
@@ -99,10 +99,7 @@ const ReferenceForm = () => {
             rules={fields.firstName.rules}
             // initialValue={product?.productName}
           >
-            <Input
-            // style={{ width: "100%" }}
-            // placeholder={fields.productName.placeholder}
-            />
+            <Input disabled={isFormDisabled} />
           </Form.Item>
 
           <Form.Item
@@ -112,10 +109,7 @@ const ReferenceForm = () => {
             rules={fields.midName.rules}
             // initialValue={product?.productName}
           >
-            <Input
-            // style={{ width: "100%" }}
-            // placeholder={fields.productName.placeholder}
-            />
+            <Input disabled={isFormDisabled} />
           </Form.Item>
 
           <Form.Item
@@ -125,10 +119,7 @@ const ReferenceForm = () => {
             rules={fields.lastName.rules}
             // initialValue={product?.productName}
           >
-            <Input
-            // style={{ width: "100%" }}
-            // placeholder={fields.productName.placeholder}
-            />
+            <Input disabled={isFormDisabled} />
           </Form.Item>
         </Space>
 
@@ -140,10 +131,7 @@ const ReferenceForm = () => {
             rules={fields.cellPhone.rules}
             // initialValue={product?.productName}
           >
-            <Input
-              style={{ width: "100%" }}
-              // placeholder={fields.productName.placeholder}
-            />
+            <Input style={{ width: "100%" }} disabled={isFormDisabled} />
           </Form.Item>
 
           <Form.Item
@@ -153,10 +141,7 @@ const ReferenceForm = () => {
             rules={fields.email.rules}
             // initialValue={product?.productName}
           >
-            <Input
-              style={{ width: "100%" }}
-              // placeholder={fields.productName.placeholder}
-            />
+            <Input style={{ width: "100%" }} disabled={isFormDisabled} />
           </Form.Item>
         </Space>
 
@@ -169,7 +154,7 @@ const ReferenceForm = () => {
         >
           <Input
             placeholder={fields.relationship.placeholder}
-            // value={product?.description}
+            disabled={isFormDisabled}
           />
         </Form.Item>
       </div>

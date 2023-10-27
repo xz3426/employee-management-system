@@ -8,6 +8,7 @@ import EmergencyForm from "Components/OnboardingForm/emergency";
 import BasicInfoForm from "Components/OnboardingForm/basicInfo";
 import OPTForm from "Components/OnboardingForm/optForm";
 import { BACKEND_URI } from "consts";
+import ReferenceForm from "Components/OnboardingForm/reference";
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -107,6 +108,8 @@ const PersonalInfoDisplay = ({ userDetail, uploadedFilesInfo }) => {
               <Option value="no">no</Option>
             </Select>
           </Form.Item>
+          <ReferenceForm isFormDisabled={!editClicked} />
+          <br />
           {!isAmerican && <OPTForm isFormDisabled={!editClicked} />}
           <br />
           <EmergencyForm isFormDisabled={!editClicked} />
